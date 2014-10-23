@@ -18,6 +18,6 @@ angular.module('tennisBookingSiteApp')
     };
 
     $scope.isActive = function(route) {
-      return route === $location.path();
+      return route === $location.url();
     };
   });

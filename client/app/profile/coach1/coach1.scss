@@ -1,0 +1,24 @@
+#timetable, tbody, thead, tr, td, th {
+  text-align: center;
+}
+
+.booked {
+  background-color: red;
+}
+.booked:hover { 
+  background-color: yellow;
+}
+
+.available {
+  background-color: lime;
+}
+.available:hover { 
+  background-color: yellow;
+}
+
+.empty {
+  background-color: lightgray;
+}
+.empty:hover { 
+  background-color: yellow;
+}
