@@ -135,6 +135,16 @@ angular.module('tennisBookingSiteApp')
       isAdmin: function() {
         return currentUser.role === 'admin';
       },
+      
+      /**
+       * Check if a user is a coach
+       *
+       * @return {Boolean}
+       */
+      isCoach: function() {
+        return currentUser.role === 'coach';
+      },
+
 
       /**
        * Get auth token
