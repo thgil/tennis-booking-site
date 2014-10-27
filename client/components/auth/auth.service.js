@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tennisBookingSiteApp')
-  .factory('Auth', function Auth($location, $rootScope, $http, User, $cookieStore, $q) {
+  .factory('Auth', function Auth($location, $rootScope, $http, User, Lesson, $cookieStore, $q) {
     var currentUser = {};
     if($cookieStore.get('token')) {
       currentUser = User.get();
@@ -67,6 +67,25 @@ angular.module('tennisBookingSiteApp')
           },
           function(err) {
             this.logout();
+            return cb(err);
+          }.bind(this)).$promise;
+      },
+      
+      /**
+       * Create a new lesson
+       *
+       * @param  {Object}   lesson     - lesson info
+       * @param  {Function} callback - optional
+       * @return {Promise}
+       */
+      createLesson: function(lesson, callback) {
+        var cb = callback || angular.noop;
+
+        return Lesson.save(lesson,
+          function(data) {
+            return cb();
+          },
+          function(err) {
             return cb(err);
           }.bind(this)).$promise;
       },

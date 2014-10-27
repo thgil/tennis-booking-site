@@ -1,11 +1,71 @@
 'use strict';
 
 angular.module('tennisBookingSiteApp')
-  .controller('Coach1Ctrl', function ($scope, $modal, $log, Auth) {
-    
+  .controller('Coach1Ctrl', function ($scope, $modal, $log, Auth, User, $location) {
+    /**
+     * Auth stuff
+     */
     $scope.getCurrentUser = Auth.getCurrentUser;
     $scope.isLoggedIn = Auth.isLoggedIn;
     
+    /**
+     * Form stuff
+     */
+    $scope.lesson = { coach:"Coach1",
+                      student:$scope.getCurrentUser().email,
+                      for:"myself",
+                      count:1,
+                      age:"18-30",
+                      exp:"beginner",
+                      startTime:null,
+                      endTime:null
+                    };
+    $scope.errors = {};
+    
+    $scope.book = function(form) {
+      $scope.submitted = true;
+
+      if(form.$valid) {
+        console.log($scope.lesson);
+        
+        Auth.createLesson($scope.lesson)
+        .then( function() {
+          // Account created, redirect to home
+          $location.path('/');
+        })
+        .catch( function(err) {
+          err = err.data;
+          $scope.errors = {};
+        
+          // Update validity of form fields that match the mongoose errors
+          angular.forEach(err.errors, function(error, field) {
+            form[field].$setValidity('mongoose', false);
+            $scope.errors[field] = error.message;
+          });
+        });
+        
+      }
+    }
+     
+    var roundedDate = function(h) {
+      var date = new Date();
+
+      date.setHours( date.getHours() + Math.round(date.getMinutes()/60) + (h||0));
+      date.setMinutes(0);
+      date.setSeconds(0);
+
+      return date;
+    };
+     
+    $scope.lesson.startTime = roundedDate();
+    $scope.lesson.endTime = roundedDate(1);
+    
+    $scope.hstep = 1;
+    $scope.mstep = 30;
+    
+    /**
+     * Timetable stuff
+     */
     $scope.days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
     $scope.times = ['6am','7am','8am','9am','10am',
                     '11am','12pm','1pm','2pm','3pm',
@@ -17,6 +77,10 @@ angular.module('tennisBookingSiteApp')
                 
     $scope.available = 'available';
     
+    
+    /**
+     * Modal things
+     */
     $scope.model = {selectedTime: 'hi'};
       
     $scope.log = function() {
