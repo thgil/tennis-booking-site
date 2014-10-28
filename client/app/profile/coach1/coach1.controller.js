@@ -1,12 +1,20 @@
 'use strict';
 
 angular.module('tennisBookingSiteApp')
-  .controller('Coach1Ctrl', function ($scope, $modal, $log, Auth, User, $location) {
+  .controller('Coach1Ctrl', function ($stateParams, $scope, $modal, $log, Auth, Coach, $location) {
+    
+    console.log($stateParams.coachId);
+  
+    $scope.coach = Coach.get({
+       url: $stateParams.coachId 
+    });
     /**
      * Auth stuff
      */
     $scope.getCurrentUser = Auth.getCurrentUser;
     $scope.isLoggedIn = Auth.isLoggedIn;
+    
+    // $scope.coaches = Coach.query();
     
     /**
      * Form stuff

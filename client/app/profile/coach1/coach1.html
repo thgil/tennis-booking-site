@@ -5,7 +5,7 @@
       <img src="assets/images/tempCoach1.png">
     </div>
     <div class="col-md-7">
-      <h2>Miha G.</h2>
+      <h2>{{coach.name}}</h2>
       <h4>Boynton Beach, FL</h4>
       <p>Hi, my name is Miha and I'm orginally from Slovenia. I was number 1 junior in the world 14 and under and a top 10 junior in the world 18 and under (semi-finalist orange bowl-quarter -finalist of junior Wimbledon). I played professional for 10 years with my highest ATP ranking 400. I won a few futures events and played Davis cup for Slovenia for 4 years. I have been coaching in Florida for the last 7 years. I worked at Rick Macci tennis academy and worked on my own for last 5 years with top juniors in Florida and a few ATP ranked players as well! I have wins over top ATP players including Juan Carlos Ferrero, Fernando Gonzales, Ivan Ljubicic and Ivo Karlovic.</p>
     </div>
@@ -125,6 +125,12 @@
       <button class="btn btn-default" ng-click="open('sm')">Small modal</button>
       <div ng-show="selected">Selection from a modal: {{ selected }}</div>
   </div>
+  </div>
+  <div class="row">
+  <li class="list-group-item" ng-repeat="coach in coaches">
+      <strong>{{coach.name}}</strong><br>
+      <span class="text-muted">{{coach.email}}</span>
+  </li>
   </div>
 </div>
 

@@ -27,6 +27,8 @@ exports.create = function (req, res, next) {
   var newUser = new User(req.body);
   newUser.provider = 'local';
   newUser.role = 'user';
+  var url = newUser.name;
+  newUser.url = url.replace(/\s+/g, '-');
   newUser.save(function(err, user) {
     if (err) return validationError(res, err);
     var token = jwt.sign({_id: user._id }, config.secrets.session, { expiresInMinutes: 60*5 });
@@ -78,6 +80,33 @@ exports.changePassword = function(req, res, next) {
     }
   });
 };
+
+exports.getCoaches = function(req, res, next) {
+  console.log('getcoaches');
+  
+  User.find({
+    role:"coach"
+  }, '-salt -hashedPassword', function (err, user) {
+    if (err) return next(err);
+    res.json(user);
+  });
+};
+
+exports.showCoach = function(req, res, next) {
+  var userId = req.params.id;
+  
+  console.log('showcoach');
+
+  User.findOne({
+    url: userId,
+    role: 'coach'
+  }, function (err, user) {
+    if (err) return next(err);
+    if (!user) return res.send(404);
+    res.json(user);
+  });
+};
+
 
 /**
  * Get my info

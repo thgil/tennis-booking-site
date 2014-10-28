@@ -40,6 +40,7 @@ User.find({}).remove(function() {
     provider: 'local',
     role: 'coach',
     name: 'Coach User',
+    url: 'coach-user',
     email: 'coach@coach.com',
     password: 'coach'
   },

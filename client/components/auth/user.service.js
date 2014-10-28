@@ -17,6 +17,6 @@ angular.module('tennisBookingSiteApp')
         params: {
           id:'me'
         }
-      }
+      },
 	  });
   });
