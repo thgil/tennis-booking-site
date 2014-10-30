@@ -12,6 +12,8 @@ var UserSchema = new Schema({
     type: String,
     default: 'user'
   },
+  location: String,
+  phone: String,
   hashedPassword: String,
   provider: String,
   salt: String
@@ -61,6 +63,19 @@ UserSchema
   .validate(function(email) {
     return email.length;
   }, 'Email cannot be blank');
+  
+UserSchema
+  .path('name')
+  .validate(function(name) {
+    return name.length;
+  }, 'Name cannot be blank');
+
+UserSchema
+  .path('name')
+  .validate(function(name) {
+    return name!='coach' && name!='me';
+  }, 'Name cannot be that');
+
 
 // Validate empty password
 UserSchema
@@ -137,6 +152,12 @@ UserSchema.methods = {
     if (!password || !this.salt) return '';
     var salt = new Buffer(this.salt, 'base64');
     return crypto.pbkdf2Sync(password, salt, 10000, 64).toString('base64');
+  },
+  
+  makeUrl: function(name) {
+    if(!name) return '';
+    
+    return name.replace(/\s+/g, '-').toLowerCase();
   }
 };
 

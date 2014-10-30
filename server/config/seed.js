@@ -39,8 +39,8 @@ User.find({}).remove(function() {
   },{
     provider: 'local',
     role: 'coach',
-    name: 'Coach User',
-    url: 'coach-user',
+    name: 'Coach1',
+    url: 'coach1',
     email: 'coach@coach.com',
     password: 'coach'
   },

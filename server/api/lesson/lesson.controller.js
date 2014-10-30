@@ -13,7 +13,7 @@ exports.index = function(req, res) {
 
 // Get a single lesson
 exports.show = function(req, res) {
-  Lesson.findById(req.params.id, function (err, lesson) {
+  Lesson.find({coach:req.params.id}, function (err, lesson) {
     if(err) { return handleError(res, err); }
     if(!lesson) { return res.send(404); }
     return res.json(lesson);

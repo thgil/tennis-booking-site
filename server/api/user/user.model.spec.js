@@ -49,6 +49,36 @@ describe('User Model', function() {
       done();
     });
   });
+  it('should fail when saving without an name', function(done) {
+    user.name = '';
+    user.save(function(err) {
+      should.exist(err);
+      done();
+    });
+  });
+  
+  it('should fail when name is me', function(done) {
+    user.email = 'test@test.com';
+    user.name = 'me';
+    user.save(function(err) {
+      should.exist(err);
+      done();
+    });
+  });
+  
+  it('should fail when name is coach', function(done) {
+    user.name = 'coach';
+    user.save(function(err) {
+      should.exist(err);
+      done();
+    });
+  });
+
+  it('should fail when url not correct', function(done) {
+    user.name = 'Fake User';
+    user.makeUrl(user.name).should.be.equal('fake-user');
+    done();
+  });
 
   it("should authenticate user if password is valid", function() {
     return user.authenticate('password').should.be.true;

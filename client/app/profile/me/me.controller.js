@@ -1,11 +1,9 @@
 'use strict';
 
 angular.module('tennisBookingSiteApp')
-  .controller('Coach1Ctrl', function ($stateParams, $scope, $modal, $log, Auth, Coach, Lesson, $location) {
-      
-    $scope.coach = Coach.get({
-       url: $stateParams.coachId 
-    });
+  .controller('MeCtrl', function ( $scope, $modal, $log, Auth, User, Coach, Lesson, $location) {
+  
+    $scope.coach = User.get();
     /**
      * Auth stuff
      */
@@ -82,61 +80,5 @@ angular.module('tennisBookingSiteApp')
     $scope.empty = 'empty';
                 
     $scope.available = 'available';
-    
-    
-    /**
-     * Modal things
-     */
-    $scope.model = {selectedTime: 'hi'};
-      
-    $scope.log = function() {
-      console.log($scope.model.selectedTime);
-    };
-                  
-    // $scope.lessons = [{day:'Mon'}];
-    
-    $scope.items = ['item1', 'item2', 'item3'];
-    
-    $scope.open = function (size) {
-      var modalInstance = $modal.open({
-        templateUrl: 'myModalContent.html',
-        controller: 'ModalInstanceCtrl',
-        size: size,
-        resolve: {
-          items: function () {
-            return $scope.items;
-          },
-          selectedTime: function () {
-            return $scope.model.selectedTime;
-          }
-        }
-      });
-
-      modalInstance.result.then(function (selectedItem) {
-        $scope.selected = selectedItem;
-      }, function () {
-        $log.info('Modal dismissed at: ' + new Date());
-      });
-    };
               
   });
-  
-angular.module('tennisBookingSiteApp').controller('ModalInstanceCtrl', function ($scope, $modalInstance, items, selectedTime) {
-
-  $scope.items = items;
-  $scope.selectedTime = selectedTime;
-  
-  console.log(items+' '+selectedTime);
-  
-  $scope.selected = {
-    item: $scope.items[0]
-  };
-
-  $scope.ok = function () {
-    $modalInstance.close($scope.selected.item);
-  };
-
-  $scope.cancel = function () {
-    $modalInstance.dismiss('cancel');
-  };
-});

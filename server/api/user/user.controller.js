@@ -27,8 +27,6 @@ exports.create = function (req, res, next) {
   var newUser = new User(req.body);
   newUser.provider = 'local';
   newUser.role = 'user';
-  var url = newUser.name;
-  newUser.url = url.replace(/\s+/g, '-');
   newUser.save(function(err, user) {
     if (err) return validationError(res, err);
     var token = jwt.sign({_id: user._id }, config.secrets.session, { expiresInMinutes: 60*5 });
@@ -81,6 +79,9 @@ exports.changePassword = function(req, res, next) {
   });
 };
 
+/**
+ * Gets a list of coaches
+ */
 exports.getCoaches = function(req, res, next) {
   console.log('getcoaches');
   
@@ -92,6 +93,26 @@ exports.getCoaches = function(req, res, next) {
   });
 };
 
+/**
+ * Creates a new coach
+ */
+exports.createCoach = function (req, res, next) {
+  var newUser = new User(req.body);
+  newUser.provider = 'local';
+  newUser.role = 'coach';
+  
+  newUser.url = newUser.makeUrl(newUser.name);
+  
+  newUser.save(function(err, user) {
+    if (err) return validationError(res, err);
+    var token = jwt.sign({_id: user._id }, config.secrets.session, { expiresInMinutes: 60*5 });
+    res.json({ token: token });
+  });
+};
+
+/**
+ * Gets a coach by id
+ */
 exports.showCoach = function(req, res, next) {
   var userId = req.params.id;
   

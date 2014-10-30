@@ -6,8 +6,5 @@ angular.module('tennisBookingSiteApp')
       id: '@_id'
     },{
       
-    },
-    {
-      stripTrailingSlashes: true
     });
   });
