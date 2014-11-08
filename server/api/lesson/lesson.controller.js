@@ -54,6 +54,20 @@ exports.destroy = function(req, res) {
   });
 };
 
+/**
+ * Get my lessons
+ */
+exports.mylessons = function(req, res, next) {
+  var userId = req.user._id;
+  User.find({
+    _id: userId
+  }, function(err, lessons) {
+    if (err) return next(err);
+    if (!lessons) return res.json(401);
+    res.json(lessons);
+  });
+};
+
 function handleError(res, err) {
   return res.send(500, err);
 }

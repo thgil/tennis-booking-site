@@ -12,73 +12,59 @@ angular.module('tennisBookingSiteApp')
     
     $scope.lessons = Lesson.query({id: "Coach1"});
     
-    /**
-     * Form stuff
-     */
-    $scope.lesson = { coach:"Coach1",
-                      student:$scope.getCurrentUser().email,
-                      for:"myself",
-                      count:1,
-                      age:"18-30",
-                      exp:"beginner",
-                      startTime:null,
-                      endTime:null
-                    };
-    $scope.errors = {};
-    
-    $scope.book = function(form) {
-      $scope.submitted = true;
-
-      if(form.$valid) {
-        console.log($scope.lesson);
-        
-        Auth.createLesson($scope.lesson)
-        .then( function() {
-          // Account created, redirect to home
-          $location.path('/');
-        })
-        .catch( function(err) {
-          err = err.data;
-          $scope.errors = {};
-        
-          // Update validity of form fields that match the mongoose errors
-          angular.forEach(err.errors, function(error, field) {
-            form[field].$setValidity('mongoose', false);
-            $scope.errors[field] = error.message;
-          });
-        });
-        
-      }
-    }
-     
-    var roundedDate = function(h) {
-      var date = new Date();
-
-      date.setHours( date.getHours() + Math.round(date.getMinutes()/60) + (h||0));
-      date.setMinutes(0);
-      date.setSeconds(0);
-
-      return date;
-    };
-     
-    $scope.lesson.startTime = roundedDate();
-    $scope.lesson.endTime = roundedDate(1);
-    
-    $scope.hstep = 1;
-    $scope.mstep = 30;
-    
-    /**
-     * Timetable stuff
-     */
-    $scope.days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-    $scope.times = ['6am','7am','8am','9am','10am',
+    $scope._days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+    $scope._times = ['6am','7am','8am','9am','10am',
                     '11am','12pm','1pm','2pm','3pm',
                     '4pm','5pm','6pm','7pm','8pm','9pm'];
         
-    $scope.available = 'available';
-    $scope.booked = 'booked';
-    $scope.empty = 'empty';
-                
-    $scope.available = 'available';
+    $scope.days = {'Mon':{},'Tue':{},'Wed':{},'Thu':{},'Fri':{},'Sat':{},'Sun':{}};
+
+    User.get(function(user){
+      $scope.days = user.availableTimes;
+    });
+
+    $scope.change = function(day,time) {
+      if($scope.days[day][time]=='available') $scope.days[day][time]='empty';
+      else $scope.days[day][time]='available';
+    };
+    
+    $scope.changeTime = function(time) {
+      if($scope.days['Mon'][time]=='empty')
+        for(var day of $scope._days) $scope.days[day][time]='available';
+      else 
+        for(var day of $scope._days) $scope.days[day][time]='empty';
+    };
+
+    $scope.changeDay = function(day) {
+      if($scope.days[day]['6am']=='empty')
+        for(var time of $scope._times) $scope.days[day][time]='available';
+      else 
+        for(var time of $scope._times) $scope.days[day][time]='empty';
+    };
+    
+    $scope.changeAll = function() {
+      var value = ($scope.days['Mon']['6am']=='available')?'empty':'available';
+
+      for(var day of $scope._days) {
+        for(var time of $scope._times) {
+          $scope.days[day][time] = value;
+        }
+      }
+    };
+    
+    $scope.updateTimetable = function() {
+      Auth.changeAvailability($scope.days);
+    }
+    
+    $scope.resetTimetable = function() {
+      User.get(function(user){
+        $scope.days = user.availableTimes;
+      });
+    }
+
+
+    $scope.updateAbout = function() {
+      Auth.changeAbout($scope.coach.about);
+    }
               
   });

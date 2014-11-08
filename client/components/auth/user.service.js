@@ -12,6 +12,25 @@ angular.module('tennisBookingSiteApp')
           controller:'password'
         }
       },
+      changeAbout: {
+        method: 'PUT',
+        params: {
+          controller:'about'
+        }
+      },
+      changeAvailability: {
+        method: 'PUT',
+        params: {
+          controller:'availability'
+        }
+      },
+      getFeatured: {
+        method: 'GET',
+        params: {
+          controller:'getFeatured'
+        },
+        isArray:true
+      },
       get: {
         method: 'GET',
         params: {

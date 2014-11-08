@@ -5,7 +5,7 @@
     <div class="col-sm-12">
       <h1>Sign up as a coach</h1>
     </div>
-    <div class="col-sm-12">
+    <div class="col-sm-4">
       <form class="form" name="form" ng-submit="registerCoach(form)" novalidate>
 
         <div class="form-group" ng-class="{ 'has-success': form.name.$valid && submitted,
@@ -40,7 +40,7 @@
                                             'has-error': form.location.$invalid && submitted }">
           <label>Location</label>
 
-          <input type="text" name="location" class="form-control" ng-model="user.location"
+          <input type="text" name="location" class="form-control" ng-autocomplete ng-model="user.location"
                  required
                  mongoose-error/>
           <p class="help-block" ng-show="form.location.$error.required && submitted">

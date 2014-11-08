@@ -1,5 +1,123 @@
+.angular-google-map-container { height: 400px; width:100% }
+
+
+#banner {
+  min-height: 400px;
+  background-size: cover;
+  background-image: url('/assets/images/tennis-player-bg1.jpg');
+  background-repeat: no-repeat;
+  background-position: center 0%;
+}
+
+.sign-up {
+  position: absolute;
+  margin-bottom: 30px;
+  bottom: 0px;
+}
+
+.shade {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 220px;
+  width: 100%;
+  background-image: -webkit-gradient(linear,0 0,0 100%,from(rgba(0,0,0,0)),color-stop(50%,rgba(0,0,0,0.7)),to(#000));
+  background-image: -webkit-linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0.7) 50%,#000);
+  background-image: -moz-linear-gradient(top,rgba(0,0,0,0),rgba(0,0,0,0.7) 50%,#000);
+  background-image: linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0.7) 50%,#000);
+  background-repeat: no-repeat;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000',endColorstr='#ff000000',GradientType=0);
+}
+
+.flip {
+  // Flip the image
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
+  transform: scaleX(-1);
+  -ms-filter: "FlipH";
+  filter: FlipH;
+}
+
+.featured {
+  display: block;
+  text-align: center;
+  padding: 10px;
+}
+.featuredCoaches {
+  display: block;
+  // margin: 10px 0;
+  text-align: center;
+}
+.featuredCoach {
+  display: inline-block;
+  margin: auto 10px;
+  position: relative;
+  text-align: center;
+  align: center;  
+}
+
+.featuredCoachText {
+  
+}
+
+.featuredCoachSelected {
+  display: inline-block;
+  width: 200px;
+  margin: 5px;
+}
+.featuredInfo {
+  text-align: center;
+  min-height: 200px;
+  background-color: #eee;
+  margin-top: 20px;
+  position: relative;
+}
+.featuredBox {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+.arrow {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 20px 20px 20px;
+  border-color: transparent transparent transparent transparent;
+  border-bottom-color: #eee;
+  top: -20px;
+  left: 50%;
+  margin-left: -20px;
+}
+
+.animate-enter, 
+.animate-leave
+{ 
+    -webkit-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -moz-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -ms-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -o-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    // position: relative;
+    // display: block;
+} 
+ 
+.animate-enter.animate-enter-active, 
+.animate-leave {
+    opacity: 1;
+}
+ 
+.animate-leave.animate-leave-active,
+.animate-enter {
+    opacity: 0;
+}
+
 .thing-form {
-    margin: 20px 0;
+  margin: 20px 0;
 }
 
 #banner {
@@ -8,25 +126,26 @@
 }
 
 #banner h1 {
-    font-size: 60px;
-    line-height: 1;
-    letter-spacing: -1px;
+  text-shadow: 2px 2px 1px rgba(0,0,0,0.8);
+  font-size: 42px;
+  font-weight: 100px;
+  color: #eee;
+  line-height: 1;
+  letter-spacing: 0px;
 }
 
 .hero-unit {
-    position: relative;
-    padding: 30px 15px;
-    color: #F5F5F5;
-    text-align: center;
-    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
-    background: #4393B9;
+  position: relative;
+  padding: 30px 15px;
+  text-align: left;
+  background: #4393B9;
 }
 
 .footer {
-    text-align: center;
-    padding: 30px 0;
-    margin-top: 70px;
-    border-top: 1px solid #E5E5E5;
+  text-align: center;
+  padding: 30px 0;
+  margin-top: 70px;
+  border-top: 1px solid #E5E5E5;
 }
 
 .coach {

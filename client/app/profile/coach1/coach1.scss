@@ -1,24 +1,30 @@
+.angular-google-map-container { height: 400px; width:100% }
+
 #timetable, tbody, thead, tr, td, th {
   text-align: center;
+}
+
+tr,td {
+  width: 40px;
 }
 
 .booked {
   background-color: red;
 }
 .booked:hover { 
-  background-color: yellow;
+
 }
 
 .available {
   background-color: lime;
 }
 .available:hover { 
-  background-color: yellow;
+  
 }
 
 .empty {
-  background-color: lightgray;
+  background-color: white;
 }
 .empty:hover { 
-  background-color: yellow;
+
 }

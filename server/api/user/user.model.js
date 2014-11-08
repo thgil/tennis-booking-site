@@ -3,21 +3,31 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var crypto = require('crypto');
+var random = require('mongoose-random');
 
 var UserSchema = new Schema({
   name: String,
-  url:String,
   email: { type: String, lowercase: true },
   role: {
     type: String,
     default: 'user'
   },
+  // Coach stuff
+  url: String,
   location: String,
   phone: String,
+  about: String,
+  age: String,
+  yearsPlaying: String,
+  yearsTeaching: String,
+  availableTimes: Object,
+  // Auth
   hashedPassword: String,
   provider: String,
   salt: String
 });
+
+UserSchema.plugin(random);
 
 /**
  * Virtuals

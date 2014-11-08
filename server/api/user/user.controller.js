@@ -128,6 +128,35 @@ exports.showCoach = function(req, res, next) {
   });
 };
 
+/**
+ * Change a coaches about info
+ */
+exports.changeAbout = function(req, res, next) {
+  var userId = req.user._id;
+  var about = String(req.body.about);
+
+  User.findById(userId, function (err, user) {
+    user.about = about;
+    user.save(function(err) {
+      if (err) return validationError(res, err);
+      res.send(200);
+    });
+  });
+};
+
+exports.changeAvailability = function(req, res, next) {
+  var userId = req.user._id;
+  var availability = req.body.availability;
+
+  User.findById(userId, function (err, user) {
+    user.availableTimes = availability;
+    user.save(function(err) {
+      if (err) return validationError(res, err);
+      if (!user) return res.json(401);
+      res.send(200);
+    });
+  });
+};
 
 /**
  * Get my info
@@ -140,6 +169,15 @@ exports.me = function(req, res, next) {
     if (err) return next(err);
     if (!user) return res.json(401);
     res.json(user);
+  });
+};
+
+exports.getFeatured = function(req, res, next) {
+  User.findRandom({role:'coach'},
+  '-salt -hashedPassword -email -about -id -provider -random -role').limit(10).exec(function (err, users) {
+    if (err) return next(err);
+    if (!users) return res.json(401);
+    res.json(200, users);
   });
 };
 

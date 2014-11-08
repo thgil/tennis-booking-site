@@ -132,6 +132,30 @@ angular.module('tennisBookingSiteApp')
           return cb(err);
         }).$promise;
       },
+      
+      changeAbout: function(about, callback) {
+        var cb = callback || angular.noop;
+
+        return User.changeAbout({ id: currentUser._id }, {
+          about: about
+        }, function(user) {
+          return cb(user);
+        }, function(err) {
+          return cb(err);
+        }).$promise;
+      },
+      
+      changeAvailability: function(availability, callback) {
+        var cb = callback || angular.noop;
+
+        return User.changeAvailability({ id: currentUser._id }, {
+          availability: availability
+        }, function(user) {
+          return cb(user);
+        }, function(err) {
+          return cb(err);
+        }).$promise;
+      },
 
       /**
        * Gets all available info on authenticated user
