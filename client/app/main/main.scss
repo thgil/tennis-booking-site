@@ -1,18 +1,61 @@
-.angular-google-map-container { height: 400px; width:100% }
+$form-height: 50px;
+$form-font-size: 1.2em;
 
+.angular-google-map-container { height: 400px; width:100% }
 
 #banner {
   min-height: 400px;
   background-size: cover;
   background-image: url('/assets/images/tennis-player-bg1.jpg');
   background-repeat: no-repeat;
-  background-position: center 0%;
+  background-position: 20% 0%;
 }
 
-.sign-up {
+#banner {
+  border-bottom: none;
+  margin-top: -20px;
+}
+
+// #banner h1 {
+//   text-shadow: 2px 2px 1px rgba(0,0,0,0.8);
+//   font-size: 42px;
+//   font-weight: 100px;
+//   color: #eee;
+//   line-height: 1;
+//   letter-spacing: 0px;
+// }
+
+.grad {
   position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 220px;
+  width: 100%;
+  background-image: -webkit-gradient(linear,0 0,0 100%,from(rgba(119, 191, 239,0)),color-stop(50%,rgba(119, 191, 239,0.7)),to(rgb(119, 191, 239)));
+  background-image: -webkit-linear-gradient(rgba(119, 191, 239,0),rgba(119, 191, 239,0.7) 50%,rgb(119, 191, 239));
+  background-image: -moz-linear-gradient(top,rgba(119, 191, 239,0),rgba(119, 191, 239,0.7) 50%,rgb(119, 191, 239));
+  background-image: linear-gradient(transparent, rgba(119, 191, 239, 0.7) 50%, rgb(119, 191, 239));
+}
+
+.search {
+  position: absolute;
+  width: 400px;
   margin-bottom: 30px;
   bottom: 0px;
+
+  margin-bottom: 20px;
+  background-color: #eee;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.search h1 {
+  font-size: 42px;
+  font-weight: 80px;
+  color: #333333;
+  line-height: 1.2;
+  letter-spacing: 0px;
 }
 
 .shade {
@@ -49,13 +92,15 @@
   display: block;
   // margin: 10px 0;
   text-align: center;
+  padding: 10px;
 }
 .featuredCoach {
-  display: inline-block;
-  margin: auto 10px;
   position: relative;
   text-align: center;
-  align: center;  
+}
+.featuredCoachImage {
+  width:100%;
+  height:150px;
 }
 
 .featuredCoachText {
@@ -120,25 +165,11 @@
   margin: 20px 0;
 }
 
-#banner {
-    border-bottom: none;
-    margin-top: -20px;
-}
-
-#banner h1 {
-  text-shadow: 2px 2px 1px rgba(0,0,0,0.8);
-  font-size: 42px;
-  font-weight: 100px;
-  color: #eee;
-  line-height: 1;
-  letter-spacing: 0px;
-}
-
 .hero-unit {
   position: relative;
-  padding: 30px 15px;
   text-align: left;
   background: #4393B9;
+  z-index: 20;
 }
 
 .footer {
@@ -148,12 +179,8 @@
   border-top: 1px solid #E5E5E5;
 }
 
-.coach {
-  min-height: 200px;
-}
-
 .featurette-divider {
-  margin: 80px 0; /* Space out the Bootstrap <hr> more */
+  margin: 40px 0; /* Space out the Bootstrap <hr> more */
 }
 
 /* Thin out the marketing headings */
@@ -161,4 +188,82 @@
   font-weight: 300;
   line-height: 1;
   letter-spacing: -1px;
+}
+
+.icon-addon {
+    position: relative;
+    color: #555;
+    display: block;
+}
+
+.icon-addon:after,
+.icon-addon:before {
+    display: table;
+    content: " ";
+}
+
+.icon-addon:after {
+    clear: both;
+}
+
+.icon-addon.addon-md .glyphicon,
+.icon-addon .glyphicon, 
+.icon-addon.addon-md .fa,
+.icon-addon .fa {
+    position: absolute;
+    z-index: 2;
+    left: 10px;
+    font-size: 2em;
+    width: 20px;
+    margin-left: -2.5px;
+    text-align: center;
+    padding: 10px 0;
+    top: 1px;
+    padding-right: 40px;
+}
+
+.icon-addon .form-control { 
+    padding-left: 40px;
+}
+
+.icon-addon .form-control:focus + .glyphicon,
+.icon-addon:hover .glyphicon,
+.icon-addon .form-control:focus + .fa,
+.icon-addon:hover .fa {
+    color: #2580db;
+}
+
+.form-control {
+  line-height: 1.33;
+  font-size: $form-font-size;
+  height: $form-height;
+  float: left;
+  font-weight: normal;
+}
+
+.btn-main {
+  padding-right: -15px;
+  margin-left: -15px;
+  width: 100%;
+  height: $form-height;
+  font-size: $form-font-size;
+}
+
+.col-md-4-r {
+  width: 33.33333%;
+  float: left;
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+}
+
+.thumbnail-coach {
+  display: block;
+  padding: 4px;
+  line-height: 1.42857;
+  background-color: white;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out;
+  margin: 20px 0 20px;
 }

@@ -7,8 +7,19 @@
 
 module.exports = {
   DOMAIN:           'http://localhost:9000',
-  SESSION_SECRET:   'tennisbookingsite-secret',
+  SESSION_SECRET:   'tennisbookingsite-secret1',
+
+  FACEBOOK_ID:      'app-id',
+  FACEBOOK_SECRET:  'secret',
 
   // Control debug level for modules using visionmedia/debug
-  DEBUG: ''
+  DEBUG: '',
+  
+  MAIL_SERVICE: "Mailgun", // sets automatically host, port and connection security settings
+  MAIL_USER: "test@sandbox730ff4fff9a847e5b5019dd30ad6dc54.mailgun.org",
+  MAIL_PASS: "12345",
+  MAIL_FROM_NAME: "Tennis booking site",
+  MAIL_FROM_ADDRESS: "noreply@justbookeh.com",
+  MAIL_CONFIRMATION_SECRET: "mailconfsecret",
+
 };

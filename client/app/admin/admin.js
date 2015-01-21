@@ -8,5 +8,11 @@ angular.module('tennisBookingSiteApp')
         templateUrl: 'app/admin/admin.html',
         controller: 'AdminCtrl',
         authenticate: true
+      })
+      .state('adminWithCode', {
+        url: '/admin/:userId',
+        templateUrl: 'app/admin/admin.html',
+        controller: 'AdminCtrl',
+        authenticate: true
       });
   });

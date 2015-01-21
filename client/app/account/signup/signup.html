@@ -2,11 +2,11 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-sm-12">
-      <h1>Sign up as a student!</h1>
-    </div>
-    <div class="col-sm-4">
-      <form class="form" name="form" ng-submit="registerUser(form)" novalidate>
+    <div class="col-sm-4 col-sm-offset-2">
+
+      <h1>Sign up as a user!</h1>
+
+      <form class="form" name="form" ng-submit="register(form)" novalidate>
 
         <div class="form-group" ng-class="{ 'has-success': form.name.$valid && submitted,
                                             'has-error': form.name.$invalid && submitted }">
@@ -42,12 +42,12 @@
           <label>Password</label>
 
           <input type="password" name="password" class="form-control" ng-model="user.password"
-                 ng-minlength="3"
+                 ng-minlength="6"
                  required
                  mongoose-error/>
           <p class="help-block"
              ng-show="(form.password.$error.minlength || form.password.$error.required) && submitted">
-            Password must be at least 3 characters.
+            Password must be at least 6 characters.
           </p>
           <p class="help-block" ng-show="form.password.$error.mongoose">
             {{ errors.password }}
@@ -55,16 +55,119 @@
         </div>
 
         <div>
-          <button class="btn btn-inverse btn-lg btn-login" type="submit">
+          <button class="btn btn-default btn-lg btn-login" type="submit">
             Sign up
           </button>
           <a class="btn btn-default btn-lg btn-register" href="/login">
             Login
           </a>
         </div>
+        
+        <hr>
+        <div>
+          <a class="btn btn-facebook" href="" ng-click="loginOauth('facebook')">
+            <i class="fa fa-facebook"></i> Connect with Facebook
+          </a>
+        </div>
 
       </form>
     </div>
+    <div class="col-sm-4 vr-left">
+      <h1>Sign up as a coach</h1>
+      
+      <form class="form" name="formcoach" ng-submit="registerCoach(form)" novalidate>
+        
+        <div class="form-group" ng-class="{ 'has-success': form.name.$valid && submitted,
+          'has-error': form.name.$invalid && submitted }">
+          <label>Name</label>
+          
+          <input type="text" name="name" class="form-control" ng-model="user.name"
+          required/>
+          <p class="help-block" ng-show="form.name.$error.required && submitted">
+            A name is required
+          </p>
+        </div>
+        
+        <div class="form-group" ng-class="{ 'has-success': form.email.$valid && submitted,
+          'has-error': form.email.$invalid && submitted }">
+          <label>Email</label>
+          <input type="email" name="email" class="form-control" ng-model="user.email"
+          required
+          mongoose-error/>
+          <p class="help-block" ng-show="form.email.$error.email && submitted">
+            Doesn't look like a valid email.
+          </p>
+          <p class="help-block" ng-show="form.email.$error.required && submitted">
+            What's your email address?
+          </p>
+          <p class="help-block" ng-show="form.email.$error.mongoose">
+            {{ errors.email }}
+          </p>
+        </div>
+      
+        <div class="form-group" ng-class="{ 'has-success': form.location.$valid && submitted,
+          'has-error': form.location.$invalid && submitted }">
+          <label>Location</label>
+          
+          <input type="text" name="location" class="form-control" ng-autocomplete ng-model="user.location"
+          required
+          mongoose-error/>
+          <p class="help-block" ng-show="form.location.$error.required && submitted">
+            Where are you located?
+          </p>
+          <p class="help-block" ng-show="form.location.$error.mongoose">
+            {{ errors.location }}
+          </p>
+          <p class="help-block" ng-show="form.location.$error.geo">
+            {{ errors.geo }}
+          </p>
+        </div>
+    
+        <div class="form-group" ng-class="{ 'has-success': form.phone.$valid && submitted,
+          'has-error': form.phone.$invalid && submitted }">
+          <label>Phone Number</label>
+          
+          <input type="tel" name="phone" class="form-control" ng-model="user.phone"
+          required
+          mongoose-error/>
+          <p class="help-block" ng-show="form.phone.$error.required && submitted">
+            What is your phone number?
+          </p>
+          <p class="help-block" ng-show="form.phone.$error.tel && submitted">
+            Please enter a valid phone number
+          </p>
+          <p class="help-block" ng-show="form.phone.$error.mongoose">
+            {{ errors.location }}
+          </p>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-success': form.password.$valid && submitted,
+          'has-error': form.password.$invalid && submitted }">
+          <label>Password</label>
+
+          <input type="password" name="password" class="form-control" ng-model="user.password"
+          ng-minlength="3"
+          required
+          mongoose-error/>
+          <p class="help-block"
+          ng-show="(form.password.$error.minlength || form.password.$error.required) && submitted">
+          Password must be at least 3 characters.
+          </p>
+          <p class="help-block" ng-show="form.password.$error.mongoose">
+            {{ errors.password }}
+          </p>
+        </div>
+
+        <div>
+          <button class="btn btn-default btn-lg btn-login" type="submit">
+            Sign up
+          </button>
+          <a class="btn btn-default btn-lg btn-register" href="/login">
+            Login
+          </a>
+        </div>
+      </form>
+    </div>
+    <hr>
   </div>
-  <hr>
 </div>

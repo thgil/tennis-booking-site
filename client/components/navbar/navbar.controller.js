@@ -11,6 +11,7 @@ angular.module('tennisBookingSiteApp')
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.isAdmin = Auth.isAdmin;
     $scope.isCoach = Auth.isCoach;
+    $scope.isUser = Auth.isUser;
     $scope.getCurrentUser = Auth.getCurrentUser;
 
     $scope.logout = function() {

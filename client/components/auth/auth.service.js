@@ -1,14 +1,13 @@
 'use strict';
 
 angular.module('tennisBookingSiteApp')
-  .factory('Auth', function Auth($location, $rootScope, $http, User, Coach, Lesson, $cookieStore, $q) {
+  .factory('Auth', function Auth($location, $rootScope, $http, User, Coach, Lesson, Review, $cookieStore, $q, Local) {
     var currentUser = {};
     if($cookieStore.get('token')) {
       currentUser = User.get();
     }
 
     return {
-
       /**
        * Authenticate user and save token
        *
@@ -50,22 +49,21 @@ angular.module('tennisBookingSiteApp')
       },
 
       /**
-       * Create a new user
+       * Create user
        *
-       * @param  {Object}   user     - user info
-       * @param  {Function} callback - optional
+       * @param  {String}  user - user info
+       * @param  {Function} callback    - optional
        * @return {Promise}
        */
       createUser: function(user, callback) {
         var cb = callback || angular.noop;
-
-        return User.save(user,
+        
+        return User.createUser(user,
           function(data) {
             $cookieStore.put('token', data.token);
             currentUser = User.get();
             return cb(user);
-          },
-          function(err) {
+          }, function(err) {
             this.logout();
             return cb(err);
           }.bind(this)).$promise;
@@ -74,29 +72,56 @@ angular.module('tennisBookingSiteApp')
       /**
        * Create a new Coach
        *
-       * @param  {Object}   Coach     - user info
+       * @param  {Object}   coach - coach info
        * @param  {Function} callback - optional
        * @return {Promise}
        */
       createCoach: function(coach, callback) {
         var cb = callback || angular.noop;
 
-        return Coach.save(coach,
+        return Coach.createCoach(coach,
           function(data) {
             $cookieStore.put('token', data.token);
             currentUser = User.get();
             return cb(coach);
-          },
-          function(err) {
+          }, function(err) {
             this.logout();
             return cb(err);
           }.bind(this)).$promise;
       },
       
+      confirmEmail: function(mailConfirmationToken, callback) {
+        var cb = callback || angular.noop;
+        
+        return Local.confirmMail({
+          mailConfirmationToken: mailConfirmationToken
+        }, function(data) {
+          $cookieStore.put('token', data.token);
+          currentUser = User.get();
+          return cb(currentUser);
+        }, function(err) {
+          return cb(err);
+        }.bind(this)).$promise;
+      },
+      
+      submitReview: function(reviewToken, lessonReview, callback) {
+        var cb = callback || angular.noop;
+                
+        return Review.submitReview({
+          id:reviewToken
+        },
+          lessonReview, function(review) {
+          return cb(review);
+        }, function(err) {
+          return cb(err);
+        }.bind(this)).$promise;
+      },
+      
+      
       /**
        * Create a new lesson
        *
-       * @param  {Object}   lesson     - lesson info
+       * @param  {Object}   lesson - lesson info
        * @param  {Function} callback - optional
        * @return {Promise}
        */
@@ -104,8 +129,8 @@ angular.module('tennisBookingSiteApp')
         var cb = callback || angular.noop;
 
         return Lesson.save(lesson,
-          function(data) {
-            return cb();
+          function(lesson) {
+            return cb(lesson);
           },
           function(err) {
             return cb(err);
@@ -126,6 +151,18 @@ angular.module('tennisBookingSiteApp')
         return User.changePassword({ id: currentUser._id }, {
           oldPassword: oldPassword,
           newPassword: newPassword
+        }, function(user) {
+          return cb(user);
+        }, function(err) {
+          return cb(err);
+        }).$promise;
+      },
+      
+      changeProfile: function(profile, callback) {
+        var cb = callback || angular.noop;
+        
+        return User.changeProfile({ id: currentUser._id }, {
+          profile: profile
         }, function(user) {
           return cb(user);
         }, function(err) {
@@ -209,13 +246,69 @@ angular.module('tennisBookingSiteApp')
       isCoach: function() {
         return currentUser.role === 'coach';
       },
-
+      
+      isUser: function() {
+        return currentUser.role === 'user';
+      },
 
       /**
        * Get auth token
        */
       getToken: function() {
         return $cookieStore.get('token');
+      },
+      
+      /**
+       * Check if a user's mail is confirmed
+       *
+       * @return {Boolean}
+       */
+      isMailconfirmed: function() {
+        return currentUser.confirmedEmail;
+      },
+      
+      /**
+       * Confirm mail
+       *
+       * @param  {Function} callback    - optional
+       * @return {Promise}
+       */
+      sendConfirmationMail: function(callback) {
+        var cb = callback || angular.noop;
+
+        return Local.verifyMail(function() {
+          return cb();
+        }, function(err) {
+          return cb(err);
+        }).$promise;
+      },
+      
+      /**
+       * Coach Confirm mail
+       *
+       * @param  {Function} callback    - optional
+       * @return {Promise}
+       */
+      sendCoachConfirmationMail: function(callback) {
+        var cb = callback || angular.noop;
+
+        return Local.verifyMail(function() {
+          return cb();
+        }, function(err) {
+          return cb(err);
+        }).$promise;
+      },
+      
+       /**
+       * Set session token
+       *
+       * @param  {String}   session token
+       * @return {Promise}
+       */
+      setSessionToken: function(sessionToken, callback) {
+        var cb = callback || angular.noop;
+        $cookieStore.put('token', sessionToken);
+        currentUser = User.get(cb);
       }
     };
   });

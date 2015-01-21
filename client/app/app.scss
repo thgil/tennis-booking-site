@@ -15,11 +15,94 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
     padding: 0.2em 0;
 }
 
+@mixin bs-callout($color, $bgcolor) {
+  display: block;
+  margin: 20px 0;
+  padding: 15px 30px 15px 15px;
+  border: 1px solid;
+  border-left-width: 5px;
+  border-color: #eee;
+  border-left-color: $color;
+  border-radius: 3px;
+  background-color: $bgcolor;
+  h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+    color: $color;
+  }
+  p:last-child {
+    margin-bottom: 0;
+  }
+  code, .highlight {
+    background-color: #fff;
+  }
+}
+
+.bs-callout-primary {
+  @include bs-callout($brand-primary, lighten($brand-primary, 45%));
+}
+
+.bs-callout-danger {
+  @include bs-callout($brand-danger, lighten($brand-danger, 30%));
+}
+
+.bs-callout-warning {
+  @include bs-callout($brand-warning, lighten($brand-warning, 50%));
+}
+
+.bs-callout-info {
+  @include bs-callout($brand-info, lighten($brand-info, 40%));
+}
+
+.bs-callout-success {
+  @include bs-callout($brand-success, lighten($brand-success, 40%));
+}
+
+.progress-bar-striped {
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.14902) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.14902) 50%, rgba(255, 255, 255, 0.14902) 75%, transparent 75%, transparent);
+  -webkit-background-size: 40px;
+  background-size: 40px 40px;
+}
+
+.social-facebook-icon {
+  color: #fff;
+}
+
+.social-facebook-icon .fa-circle {
+  color: #3b5998;
+}
+
+.social-twitter-icon {
+  color: #fff;
+}
+
+.social-twitter-icon .fa-circle {
+  color: #55acee;
+}
+
+.social-google-plus-icon {
+  color: #fff;
+}
+
+.social-google-plus-icon .fa-circle {
+  color: #dd4b39;
+}
+
+.social-youtube-icon {
+  color: #fff;
+}
+
+.social-youtube-icon .fa-circle {
+  color: #b31217;
+}
+
 // Component styles are injected through grunt
 // injector
 @import 'account/login/login.scss';
+@import 'account/signup/signup.scss';
 @import 'admin/admin.scss';
+@import 'list/list.scss';
 @import 'main/main.scss';
-@import 'profile/coach1/coach1.scss';
+@import 'profile/coach/coach.scss';
+@import 'footer/footer.scss';
 @import 'modal/modal.scss';
 // endinjector

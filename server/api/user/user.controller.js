@@ -4,6 +4,7 @@ var User = require('./user.model');
 var passport = require('passport');
 var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
+var mail = require('../../mail');
 
 var validationError = function(res, err) {
   return res.json(422, err);
@@ -21,16 +22,89 @@ exports.index = function(req, res) {
 };
 
 /**
- * Creates a new user
- */
-exports.create = function (req, res, next) {
+* Creates a User
+*/
+exports.createUser = function(req, res, next) {
+    
+  var email = req.body.email;
+  var name = req.body.name;
+  
   var newUser = new User(req.body);
   newUser.provider = 'local';
   newUser.role = 'user';
+  
   newUser.save(function(err, user) {
     if (err) return validationError(res, err);
+
+    var mailConfirmationToken = jwt.sign({name : name, email: email},
+      config.secrets.mailConfirmation,
+      {expiresInMinutes: 60 * 24 * 30});
+      
+    mail.userConfirmation.sendMail(name, email, mailConfirmationToken, null);
+    
     var token = jwt.sign({_id: user._id }, config.secrets.session, { expiresInMinutes: 60*5 });
     res.json({ token: token });
+  });
+};
+
+/**
+ * Creates a new coach
+ */
+exports.createCoach = function (req, res, next) {
+
+  var email = req.body.email;
+  var name = req.body.name;
+
+  var newUser = new User(req.body);
+  newUser.provider = 'local';
+  newUser.role = 'coach';
+  
+  // Probably should be done in the model.js somewhere
+  newUser.url = newUser.makeUrl(newUser.name);
+
+  newUser.save(function(err, user) {
+    if (err) return validationError(res, err);
+    
+    var mailConfirmationToken = jwt.sign({name : name, email: email},
+      config.secrets.mailConfirmation,
+      {expiresInMinutes: 60 * 24 * 30});
+
+    mail.coachConfirmation.sendMail(name, email, mailConfirmationToken, null);
+    
+    var token = jwt.sign({_id: user._id }, config.secrets.session, { expiresInMinutes: 60*5 });
+    res.json({ token: token });
+  });
+};
+
+/**
+* Confirms email for any user
+*/
+exports.confirmEmail = function(req, res, next) {  
+  var mailConfirmationToken = req.param('mailConfirmationToken');
+
+  jwt.verify(mailConfirmationToken, config.secrets.mailConfirmation, function(error, data) {
+
+    if (error) return res.send(403);
+
+    if (data.exp < Date.now()) return res.send(403);
+
+    User.findOne({email: data.email}, function(error, user){
+      if (error) return res.send(403);
+      if (!user) return res.send(403);
+
+      user.confirmedEmail = true;
+    
+      user.save(function(err, user) {
+        if (err) return validationError(res, err);
+        
+        if (user.role === 'coach') {
+          mail.adminConfirmation.sendMail(user.name, user.email, user._id, null);
+        }
+        
+        var token = jwt.sign({_id: user._id }, config.secrets.session, { expiresInMinutes: 60*5 });
+        res.json({ token: token });
+      });
+    });
   });
 };
 
@@ -80,11 +154,29 @@ exports.changePassword = function(req, res, next) {
 };
 
 /**
+* Change a users profile
+*/
+exports.changeProfile = function(req, res, next) {
+  var userId = req.user._id;
+  var profile = req.body.profile;
+  
+  User.findById(userId, function (err, user) {
+    user.for = profile.for;
+    user.count = profile.count;
+    user.age = profile.age;
+    user.exp = profile.exp;
+    
+    user.save(function(err) {
+      if (err) return validationError(res, err);
+      res.send(200);
+    });
+  });
+};
+
+/**
  * Gets a list of coaches
  */
-exports.getCoaches = function(req, res, next) {
-  console.log('getcoaches');
-  
+exports.getCoaches = function(req, res, next) {  
   User.find({
     role:"coach"
   }, '-salt -hashedPassword', function (err, user) {
@@ -93,35 +185,17 @@ exports.getCoaches = function(req, res, next) {
   });
 };
 
-/**
- * Creates a new coach
- */
-exports.createCoach = function (req, res, next) {
-  var newUser = new User(req.body);
-  newUser.provider = 'local';
-  newUser.role = 'coach';
-  
-  newUser.url = newUser.makeUrl(newUser.name);
-  
-  newUser.save(function(err, user) {
-    if (err) return validationError(res, err);
-    var token = jwt.sign({_id: user._id }, config.secrets.session, { expiresInMinutes: 60*5 });
-    res.json({ token: token });
-  });
-};
 
 /**
  * Gets a coach by id
  */
 exports.showCoach = function(req, res, next) {
   var userId = req.params.id;
-  
-  console.log('showcoach');
 
   User.findOne({
     url: userId,
     role: 'coach'
-  }, function (err, user) {
+  }, '-salt -hashedPassword', function (err, user) {
     if (err) return next(err);
     if (!user) return res.send(404);
     res.json(user);
@@ -165,7 +239,7 @@ exports.me = function(req, res, next) {
   var userId = req.user._id;
   User.findOne({
     _id: userId
-  }, '-salt -hashedPassword', function(err, user) { // don't ever give out the password or salt
+  }, '-salt -hashedPassword -random -provider', function(err, user) { // don't ever give out the password or salt
     if (err) return next(err);
     if (!user) return res.json(401);
     res.json(user);
@@ -174,10 +248,23 @@ exports.me = function(req, res, next) {
 
 exports.getFeatured = function(req, res, next) {
   User.findRandom({role:'coach'},
-  '-salt -hashedPassword -email -about -id -provider -random -role').limit(10).exec(function (err, users) {
+  '-salt -hashedPassword -email -about -id -provider -random -role').limit(4).exec(function (err, users) {
     if (err) return next(err);
     if (!users) return res.json(401);
     res.json(200, users);
+  });
+};
+
+exports.confirmCoach = function(req, res, next) {
+  var userId = req.params.id;
+  var confirmedCoach = req.body.confirmedCoach;
+    
+  User.findById(userId, function (err, user) {
+    user.confirmedCoach = confirmedCoach;
+    user.save(function(err) {
+      if (err) return validationError(res, err);
+      res.send(200);
+    });
   });
 };
 

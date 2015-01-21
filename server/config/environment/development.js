@@ -8,5 +8,5 @@ module.exports = {
     uri: 'mongodb://localhost/tennisbookingsite-dev'
   },
 
-  seedDB: true
+  seedDB: true,
 };

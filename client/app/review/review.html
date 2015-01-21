@@ -1,0 +1,40 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      Submit your review!
+      <form class="form" name="form" ng-submit="reviewLesson(form)" novalidate>
+        
+        <div class="form-group">
+          <label>Rating</label>
+          
+          <input type="number" name="rating" class="form-control" min="1" max="5" ng-model="review.rating">
+        </div>
+        
+        <div class="form-group">
+          <label>Comment</label>
+          
+          <input type="textbox" name="comment" class="form-control" ng-model="review.comment">
+        </div>
+        
+        <div class="form-group has-error">
+          <p class="help-block" ng-show="form.rating.$error.required && submitted">
+            Please select a rating.
+          </p>
+          
+          <p class="help-block">{{ errors.other }}</p>
+        </div>
+        
+        <div>
+          <button class="btn btn-default btn-lg btn-login" type="submit">
+            submit
+          </button>
+        </div>
+      </form>
+      
+    </div>
+  </div>
+</div>
+
+<div ng-include="'components/footer/footer.html'"></div>

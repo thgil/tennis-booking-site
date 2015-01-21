@@ -19,7 +19,7 @@ angular.module('tennisBookingSiteApp', [
     $httpProvider.interceptors.push('authInterceptor');
     
     uiGmapGoogleMapApiProvider.configure({
-      key: 'AIzaSyAJenJA9kAclNsZdL6cbqufNlg1Z-aY7zs',
+      key: 'AIzaSyCKmOPmlsvOLF4EpCHgTz1h8FjWknprh1g',
       v: '3.17',
       libraries: 'geometry,visualization,places'
     });

@@ -1,0 +1,25 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="container">
+  <div class="col-md-2">
+    Search options here
+  </div>
+  <div class="col-md-10">
+    <div ng-repeat="coach in featuredCoaches" class="row">
+      <div class="col-md-2">
+        <div class="thumbnail">
+          <a ng-href="/profile/{{coach.url}}">
+            <img holder="holder.js/100%x180/random" alt="{{coach.name}}">
+          </a>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <a href="/profile/{{coach.url}}"><h4>{{coach.name}}</h4></a>
+        Some generic text here about how awesome the cat on the left is.
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div ng-include="'components/footer/footer.html'"></div>

@@ -1,0 +1,66 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+<div class="container">
+  <div class="row">  
+    <div class="alert alert-danger">
+      This page is still under construction!
+    </div>
+    <div class="col-md-3">
+      <div class="thumbnail">
+        <img holder="holder.js/100%x250/random" alt="coach.name">
+          <h2>{{coach.name}}</h2>
+          <p>
+            <strong>Years Playing :</strong>
+            12 Years
+          </p>
+          <p>
+            <strong>Years Teaching :</strong>
+            7 Years
+          </p>
+          <button class="btn btn-danger btn-lg">BOOK</button>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="bs-callout bs-callout-info">
+        <h2>{{coach.name}}</h2>
+        <h4>Boynton Beach, FL</h4>
+        <a href="#" id="#about" editable-textarea="coach.about" e-cols="80" e-rows="10" onaftersave="updateAbout()">
+          {{ coach.about || 'no description' }}
+        </a>
+      </div>
+      
+      <ui-gmap-google-map center="map.center" 
+      zoom="map.zoom" draggable="true" 
+      bounds="map.bounds" control="map.control" 
+      options="map.options">
+        <ui-gmap-circle center="circle.center" stroke="circle.stroke" fill="circle.fill" radius="circle.radius">
+        </ui-gmap-circle>
+      </ui-gmap-google-map>
+    
+      <b>Prev</b>
+      {{date.start}} - {{date.end}}
+      <b>Next</b>
+      <h2>My timetable</h2>
+      <table id="timetable" class="table table-bordered">
+        <tbody>
+          <tr>
+            <td ng-click="changeAll()"></td>
+            <td ng-repeat="day in _days" ng-click="changeDay(day)">{{day}}</td>
+          </tr>
+          <tr ng-repeat="time in _times">
+            <td ng-click="changeTime(time)">{{time}}</td>
+            <td ng-repeat="day in _days" ng-class="days[day][time]" ng-click="change(day,time)"></td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="help-block"> {{ message }} </p>
+      <button class="btn btn-primary btn" ng-click="updateTimetable()" >
+        Save
+      </button>
+      <button class="btn btn-primary btn" ng-click="resetTimetable()" >
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>
+
+<div ng-include="'components/footer/footer.html'"></div>

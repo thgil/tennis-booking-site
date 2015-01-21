@@ -2,7 +2,7 @@
 
 angular.module('tennisBookingSiteApp')
   .factory('Coach', function ($resource) {
-    return $resource('/api/users/coach/:url/:controller', {
+    return $resource('/api/coaches/:url/:controller', {
       url: '@_id'
     },{
       get: {
@@ -10,6 +10,9 @@ angular.module('tennisBookingSiteApp')
         params: {
           url:'me'
         }
+      },
+      createCoach: {
+        method: 'POST',
       }
     });
   });

@@ -2,11 +2,44 @@
 
 <div class="container">
   <p>The delete user and user index api routes are restricted to users with the 'admin' role.</p>
-  <ul class="list-group">
-    <li class="list-group-item" ng-repeat="user in users">
-        <strong>{{user.name}}</strong><br>
-        <span class="text-muted">{{user.email}}</span>
-        <a ng-click="delete(user)" class="trash"><span class="glyphicon glyphicon-trash pull-right"></span></a>
+  <div class="col-md-6">
+    <ul class="list-group">
+      <li class="list-group-item active">
+          <strong><center>Coaches</center></strong>
+      </li>
+      <li class="list-group-item" ng-repeat="coach in users | filter:matchRole('tempCoach','coach')" ng-click="coach.active = !coach.active">
+          <strong>{{coach.name}}</strong><br>
+          <span class="text-muted">{{coach.email}}</span>
+          <span class="label label-warning label-as-badge pull-right" ng-show="!coach.confirmedEmail">Email</span>
+          <span class="label label-success label-as-badge pull-right" ng-show="coach.confirmedEmail">Email</span>
+          <span class="label label-danger label-as-badge pull-right" ng-show="!coach.confirmedCoach">Not confirmed</span>
+          <span class="label label-success label-as-badge pull-right" ng-show="coach.confirmedCoach">Confirmed</span>
+
+          <div class="list-group-sub-item" ng-show="coach.active">
+            {{coach}}
+            <button class="btn btn-primary" ng-click="confirm(coach);$event.stopPropagation();">Confirm</button>
+
+            <a ng-click="delete(coach)" class="trash"><span class="glyphicon glyphicon-trash pull-right"></span></a>
+          </div>
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-6">  
+    <li class="list-group-item active">
+        <strong><center>Users</center></strong>
     </li>
-  </ul>
+    <ul class="list-group">
+      <li class="list-group-item" ng-repeat="user in users | filter:matchRole('guest','user')" ng-click="user.active = !user.active">
+          <strong>{{user.name}}</strong><br>
+          <span class="text-muted">{{user.email}}</span>
+          <span class="label label-warning label-as-badge pull-right" ng-show="!coach.confirmedEmail">Email not confirmed</span>
+          <div class="list-group-sub-item" ng-show="user.active">
+            {{user}}
+            <a ng-click="delete(user)" class="trash"><span class="glyphicon glyphicon-trash pull-right"></span></a>
+          </div>
+      </li>
+    </ul>
+  </div>
 </div>
+
+<div ng-include="'components/footer/footer.html'"></div>

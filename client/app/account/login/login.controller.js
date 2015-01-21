@@ -1,9 +1,13 @@
 'use strict';
 
 angular.module('tennisBookingSiteApp')
-  .controller('LoginCtrl', function ($scope, Auth, $location) {
+  .controller('LoginCtrl', function ($scope, Auth, $location, $window, $stateParams) {
     $scope.user = {};
     $scope.errors = {};
+
+    if ($stateParams.sessionToken) {
+      Auth.setSessionToken($stateParams.sessionToken, function(){$location.path('/');});
+    }
 
     $scope.login = function(form) {
       $scope.submitted = true;
@@ -21,6 +25,10 @@ angular.module('tennisBookingSiteApp')
           $scope.errors.other = err.message;
         });
       }
+    };
+    
+    $scope.loginOauth = function(provider) {
+      $window.location.href = '/auth/' + provider;
     };
 
   });

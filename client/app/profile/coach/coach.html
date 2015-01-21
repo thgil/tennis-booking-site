@@ -1,0 +1,84 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+<div class="container">
+  <div class="row">  
+    <div class="col-md-3">
+      <div class="thumbnail">
+        <img holder="holder.js/100%x250/random" alt="coach.name">
+          <h2>{{coach.name}}</h2>
+          <p>
+            <strong>Years Playing :</strong>
+            12 Years
+          </p>
+          <p>
+            <strong>Years Teaching :</strong>
+            7 Years
+          </p>
+          <button class="btn btn-danger btn-lg">BOOK LESSON</button>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="bs-callout bs-callout-info">
+        <h2>{{coach.name}}</h2>
+        <h4>Boynton Beach, FL</h4>
+        <p>{{coach.about}}</p>
+      </div>
+    
+      <b>Prev</b>
+      {{date.start}} - {{date.end}}
+      <b>Next</b>
+      <table id="timetable" class="table table-bordered">
+        <tbody>
+          <tr>
+            <td></td>
+            <td ng-repeat="day in _days">{{day}}</td>
+          </tr>
+          <tr ng-repeat="time in _times">
+            <td>{{time}}</td>
+            <td ng-repeat="day in _days" ng-class="days[day][time]" ng-click="open(day, time)"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-3">
+      <ui-gmap-google-map center="map.center" 
+        zoom="map.zoom" draggable="true" 
+        bounds="map.bounds" control="map.control" 
+        options="map.options">
+        <ui-gmap-circle center="circle.center" stroke="circle.stroke" fill="circle.fill" radius="circle.radius">
+        </ui-gmap-circle>
+      </ui-gmap-google-map>
+    </div>
+  </div>
+    <script type="text/ng-template" id="bookModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Book a lesson!</h3>
+        </div>
+        <div class="modal-body">
+          <div ng-hide="isLoggedIn()">
+            Sign up to book!
+          </div>
+          <div ng-show="isLoggedIn()">
+          Click to book the lesson on {{day}} at {{time}}!
+          </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="book()">BOOK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+
+  </div>
+  <div class="row">
+  <li class="list-group-item" ng-repeat="l in lessons">
+      <strong>{{l.for}}</strong><br>
+      <span class="text-muted">{{l.coach}}</span> with 
+      <span class="text-muted">{{l.count}}</span> person. Age:
+      <span class="text-muted">{{l.age}}</span> Exp:
+      <span class="text-muted">{{l.exp}}</span> from
+      <span class="text-muted">{{l.startTime | date :"yyyy-MM-dd 'at' h:mma"}}</span> to
+      <span class="text-muted">{{l.endTime | date :"yyyy-MM-dd 'at' h:mma"}}</span>
+  </li>
+  </div>
+</div>
+
+<div ng-include="'components/footer/footer.html'"></div>

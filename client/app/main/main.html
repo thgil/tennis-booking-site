@@ -2,74 +2,95 @@
 
 <header class="hero-unit" id="banner">
   <div class="backdrop"></div>
+  <div class="grad"></div>
   <div class="container">
-    <div class="sign-up">
-      <h1>Tennis Lessons start here</h1>
-      <a href="#" class="btn btn-default btn-lg" role="button">Students</a>
-      <a href="#" class="btn btn-default btn-lg" role="button">Coaches</a>
+    <div class="search">
+      <div class="panel-body">
+        <div class="col-md-12">
+          <h1>Find your coach!</h1>
+        </div>
+        <form class="form" name="searchForm" ng-submit="find(searchForm)">
+          <div class="form-group col-md-12">
+              <input type="text" autocomplete="off" placeholder="Choose your sport!" class="form-control" typeahead="sport for sport in sports | filter:$viewValue | limitTo:8" ng-model="type" id="type" required/>
+          </div>
+          <div class="form-group col-md-8">
+            <div class="icon-addon addon">
+              <input type="text" placeholder="Search your location!" class="form-control" ng-autocomplete ng-model="location" id="location" 
+              ng-minlength="2" required/>
+              <label for="location" class="glyphicon glyphicon-map-marker" rel="tooltip" title="location"></label>
+            </div>
+          </div>
+          <div class="form-group col-md-4-r">
+            <button type="submit" class="btn btn-success btn-main">Search</button>
+          </div>
+      </div>
+      <!-- <div class="row">
+        <div class="col-md-12">
+          <h1>Book your lesson</h1>
+        </div>
+      </div>
+      <div class="row">
+        <form class="form" name="searchForm" ng-submit="find(searchForm)">
+          <div class="form-group col-md-8">
+            <div class="icon-addon addon">
+              <input type="text" placeholder="Search your location!" class="form-control" ng-autocomplete ng-model="location" id="location" 
+                ng-minlength="2" required/>
+              <label for="location" class="glyphicon glyphicon-map-marker" rel="tooltip" title="location"></label>
+            </div>
+          </div>
+          <div class="form-group col-md-4">
+            <button type="submit" class="btn btn-success btn-main">Search</button>
+          </div>
+        </form>
+      </div> -->
     </div>
   </div>  
 </header>
-
 <div class="container">
-  <!-- <div class="row">
-    <div class="featured">
-      <h2>test text here but stuff</h2>
-    </div>
-    <div class="featuredCoaches">
-      <i class="glyphicon glyphicon-chevron-left" style="position:relative; text-align: center;"></i>
-      <div class="featuredCoach" ng-animate="'animate'" ng-repeat="num in selectedCoaches" style="width: {{rangeSize[$index]*size+100}}px;" ng-click="change(rangeChange[$index]);">
-        {{$index}} and {{$id}}
-          <a href="/profile/{{featuredCoaches[num]}}">
-            <img alt="{{featuredCoaches[num]}}" class="img-thumbnail pic-wrap" src="assets/images/tempCoach2.png">
-          </a>
-          <a class="featuredCoachText" href="/profile/{{featuredCoaches[num]}}">
-            <i class="fa fa-user"></i> {{featuredCoaches[num]}}
-          </a>
-      </div>
-    </div>
-  </div>
   <div class="row">
-    <div class="col-md-offset-2 col-md-8 featuredInfo col-md-offset-2">
-      text
-    </div>
-  </div> -->
-  <div class="row">
-    <div>
-      <ui-gmap-google-map center="map.center" 
-      zoom="map.zoom" draggable="true" 
-      bounds="map.bounds" control="map.control" 
-      options="map.options">
-
-      </ui-gmap-google-map>
-    </div>
-    <div class="col-lg-12">
-      <h1 class="page-header">Find your instructor
-        <form class="navbar-form" role="search">
-          <div class="input-group">
-            <input type="text" ng-autocomplete ng-model="search" class="form-control" placeholder="Search your area">
-            <div class="input-group-btn">
-              <button class="btn btn-default" type="submit" style="height: 34px;"><i class="glyphicon glyphicon-search"></i></button>
+    <div class="col-md-12">
+      <div class="featuredCoaches">
+        <div class="row">
+          <div ng-repeat="coach in featuredCoaches | filter:search" class="col-md-3 featuredCoach">              
+            <div class="thumbnail-coach">
+              <a ng-href="/profile/{{coach.url}}">
+                <img holder="holder.js/100%x180/random" alt="{{coach.name}}">
+              </a>
+              <div>
+                <a href="/profile/{{coach.url}}"><h4>{{coach.name}}</h4></a>
+                <p>
+                  Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+                  Donec id elit non mi porta gravida at eget metus.
+                  Nullam id dolor id nibh ultricies vehicula ut id elit.
+                </p>
+                <a class="btn btn-primary show" href="/profile/{{coach.url}}">
+                  <i class="fa fa-user"></i> View Profile
+                </a>
+              </div>
             </div>
+            <!-- <div class="col-lg-6">
+              <a ng-href="/profile/{{coach.url}}" class="thumbnail">
+                  <img holder="holder.js/100%x180" alt="{{coach.name}}">
+                </a>
+              </a>
+              <a class="btn btn-primary show" href="/profile/{{coach.url}}">
+                <i class="fa fa-user"></i> View Profile
+              </a>
+            </div>
+            <div class="col-lg-6">
+              <a href="/profile/{{coach.url}}"><h4>{{coach.name}}</h4></a>
+              Some generic text here about how awesome the cat on the left is.
+            </div> -->
           </div>
-        </form>
-      </h1>
-      
-      <div ng-animate="'animate'" ng-repeat="coach in featuredCoaches | filter:search" class="col-lg-4 coach">
-        <div class="col-lg-5">
-          <a href="/profile/{{coach.url}}">
-            <img alt="Coach1" class="img-rounded pic-wrap" src="assets/images/tempCoach2.png" style="width:100%;height:150px;">
-          </a>
-          <a class="btn btn-primary show" href="/profile/{{coach.url}}">
-            <i class="fa fa-user"></i> View Profile
-          </a>
-        </div>
-        <div class="col-lg-7">
-          <a href="/profile/{{coach.url}}"><h4>{{coach.name}}</h4></a>
-          Some generic text here about how awesome the cat on the left is.
         </div>
       </div>
-    </div>  
+      <div ng-show="noCoaches">
+          No coaches found near this area!
+      </div>
+      <div ng-show="loading" style="margin-left: auto;margin-right: auto; width:25px;">
+        <i class="fa fa-cog fa-spin fa-2x"></i>
+      </div>
+    </div>
   </div>
   <hr id="howitworks" class="featurette-divider">
   <div class="row featurette">
@@ -78,13 +99,13 @@
       <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
     </div>
     <div class="col-md-4">
-      <img class="featurette-image img-responsive center" data-src="holder.js/300x300/vine" alt="300x300">
+      <img class="featurette-image img-responsive center" holder="holder.js/300x300/vine" alt="300x300">
     </div>
   </div>
   <hr class="featurette-divider">
   <div class="row featurette">
     <div class="col-md-4">
-      <img class="featurette-image img-responsive" data-src="holder.js/300x300/social" alt="300x300">
+      <img class="featurette-image img-responsive" holder="holder.js/300x300/social" alt="300x300">
     </div>
     <div class="col-md-8">
       <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
@@ -98,7 +119,7 @@
       <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
     </div>
     <div class="col-md-4">
-      <img class="featurette-image img-responsive center" src="holder.js/300x300/vine" alt="300x300">
+      <img class="featurette-image img-responsive center" holder="holder.js/300x300/vine" alt="300x300">
     </div>
   </div>
   <!-- <div class="row">
@@ -120,5 +141,4 @@
     </p>
   </form> -->
 </div>
-
 <div ng-include="'components/footer/footer.html'"></div>

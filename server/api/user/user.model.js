@@ -6,18 +6,23 @@ var crypto = require('crypto');
 var random = require('mongoose-random');
 
 var UserSchema = new Schema({
+  // Common stuff
   name: String,
   email: { type: String, lowercase: true },
-  role: {
-    type: String,
-    default: 'user'
-  },
+  role: { type: String, default: 'user' },
+  confirmedEmail: { type: Boolean, default: false },
+  age: String,
+  // User stuff
+  for: String,
+  count: Number,
+  exp: String,
   // Coach stuff
+  confirmedCoach: { type: Boolean, default: false },
   url: String,
   location: String,
+  loc: { type: [Number], index: '2dsphere'},
   phone: String,
   about: String,
-  age: String,
   yearsPlaying: String,
   yearsTeaching: String,
   availableTimes: Object,
@@ -83,10 +88,9 @@ UserSchema
 UserSchema
   .path('name')
   .validate(function(name) {
-    return name!='coach' && name!='me';
+    return name!=='coach' && name!=='me';
   }, 'Name cannot be that');
-
-
+  
 // Validate empty password
 UserSchema
   .path('hashedPassword')
@@ -168,6 +172,11 @@ UserSchema.methods = {
     if(!name) return '';
     
     return name.replace(/\s+/g, '-').toLowerCase();
+  },
+  
+  confirmMail : function(cb) {
+    this.confirmedEmail = true;
+    this.save(cb)
   }
 };
 

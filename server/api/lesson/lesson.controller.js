@@ -2,6 +2,8 @@
 
 var _ = require('lodash');
 var Lesson = require('./lesson.model');
+var User = require('../user/user.model');
+var mail = require('../../mail');
 
 // Get list of lessons
 exports.index = function(req, res) {
@@ -11,7 +13,7 @@ exports.index = function(req, res) {
   });
 };
 
-// Get a single lesson
+// Get a list of lesson
 exports.show = function(req, res) {
   Lesson.find({coach:req.params.id}, function (err, lesson) {
     if(err) { return handleError(res, err); }
@@ -22,9 +24,40 @@ exports.show = function(req, res) {
 
 // Creates a new lesson in the DB.
 exports.create = function(req, res) {
-  Lesson.create(req.body, function(err, lesson) {
+  
+  var lesson = req.body;
+  
+  // Check user and coach exist before making the lesson
+  
+  User.findById(lesson.coach, function(err, coach){
     if(err) { return handleError(res, err); }
-    return res.json(201, lesson);
+    if(!coach) { return res.send(403); }
+    
+    User.findById(lesson.user, function(err, user){
+      if(err) { return handleError(res, err); }
+      if(!user) { return res.send(403); }
+      
+      Lesson.create({
+        coach: coach._id,
+        coachName: coach.name,
+        user: user._id,
+        bookDate: new Date(),
+        for: lesson.for,
+        count: lesson.count,
+        age: lesson.age,
+        exp: lesson.exp,
+        startTime: lesson.startTime,
+        endTime: lesson.endTime
+      }, function(err, lesson) {
+        if(err) { return handleError(res, err); }
+        
+        mail.lessonCoach.sendMail(user.name, coach.name, lesson.startTime, coach.email, null);
+        mail.lessonUser.sendMail(user.name, coach.name, lesson.startTime, user.email, null);
+        
+        return res.json(201, lesson);
+      });
+      
+    });
   });
 };
 

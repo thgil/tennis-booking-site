@@ -1,0 +1,77 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="progress">
+        <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="{{completed}}" aria-valuemin="0" aria-valuemax="100" style="width: {{completed}}%">
+          <span class="sr-only">{{completed}}% Complete</span>
+          {{completed}}%
+        </div>
+      </div>
+      <hr>
+      <div>
+        <strong>Email</strong>
+        <span class="label label-danger label-as-badge pull-right" ng-show="!user.confirmedEmail">Not Confirmed</span>
+        <span class="label label-success label-as-badge pull-right" ng-show="user.confirmedEmail">Confirmed</span>
+      </div>
+      <hr>
+      <form class="form" name="form" ng-submit="changeProfile(form)" novalidate>
+        <div class="form-group">
+          <label for="LessonFor">These Lessons are for?</label>
+          <select class="form-control" name="LessonFor" ng-model="user.for">
+            <option value="myself">Myself</option>
+            <option value="child">Child</option>
+            <option value="friend">Friend</option>
+            <option value="partner">Partner</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <label for="LessonCount">Number of students? (1-2)</label>
+        <div class="form-group">
+          <label class="radio-inline">
+            <input type="radio" name="LessonCount" id="inlineRadio1" value="1" ng-model="user.count" checked> 1
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="LessonCount" id="inlineRadio2" value="2" ng-model="user.count"> 2
+          </label>
+        </div>
+        <div class="form-group">
+          <label for="LessonAgeGroup">Age</label>
+          <select class="form-control" name="LessonAgeGroup" ng-model="user.age">
+            <option value="under5">Under 5</option>
+            <option value="5-11">5-11</option>
+            <option value="12-17">12-17</option>
+            <option value="18-30" selected>18-30</option>
+            <option value="31-60">31-60</option>
+            <option value="60+">60+</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="LessonExp">Experience</label>
+          <select class="form-control" name="LessonExp" ng-model="user.exp">
+            <option value="beginner">Beginner</option>
+            <option value="advancedBeginner">Advanced Beginner</option>
+            <option value="intermediate">Intermediate</option>
+            <option value="advanced">Advanced</option>
+          </select>
+        </div>
+        <p class="help-block"> {{ message }} </p>
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+      </form>
+    </div>
+    <div class="col-md-6">
+      <ul class="list-group">
+        <li class="list-group-item active">
+            <strong><center>Lessons</center></strong>
+        </li>
+        <li class="list-group-item" ng-repeat="lesson in lessons">
+            <strong>{{lesson.coach}}</strong> From {{lesson.startTime | date:'short'}} till {{lesson.endTime | date:'short'}}<br>
+            <span class="text-muted">{{lesson.user}}</span>
+            <span class="label label-warning label-as-badge pull-right" ng-show="!coach.confirmedEmail">Confirmed</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div ng-include="'components/footer/footer.html'"></div>
