@@ -1,9 +1,9 @@
 $form-height: 50px;
 $form-font-size: 1.2em;
 $inner-addon-padding: 50px;
-// 
+//
 // .angular-google-map-container { height: 400px; width:100% }
-// 
+//
 // // #banner h1 {
 // //   text-shadow: 2px 2px 1px rgba(0,0,0,0.8);
 // //   font-size: 42px;
@@ -12,7 +12,7 @@ $inner-addon-padding: 50px;
 // //   line-height: 1;
 // //   letter-spacing: 0px;
 // // }
-// 
+//
 // .grad {
 //   position: absolute;
 //   left: 0;
@@ -24,7 +24,7 @@ $inner-addon-padding: 50px;
 //   background-image: -moz-linear-gradient(top,rgba(119, 191, 239,0),rgba(119, 191, 239,0.7) 50%,rgb(119, 191, 239));
 //   background-image: linear-gradient(transparent, rgba(119, 191, 239, 0.7) 50%, rgb(119, 191, 239));
 // }
-// 
+//
 // .shade {
 //   position: absolute;
 //   left: 0;
@@ -38,7 +38,7 @@ $inner-addon-padding: 50px;
 //   background-repeat: no-repeat;
 //   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000',endColorstr='#ff000000',GradientType=0);
 // }
-// 
+//
 // .flip {
 //   // Flip the image
 //   -moz-transform: scaleX(-1);
@@ -49,7 +49,7 @@ $inner-addon-padding: 50px;
 //   -ms-filter: "FlipH";
 //   filter: FlipH;
 // }
-// 
+//
 // .featured {
 //   display: block;
 //   text-align: center;
@@ -69,11 +69,11 @@ $inner-addon-padding: 50px;
 //   width:100%;
 //   height:150px;
 // }
-// 
+//
 // .featuredCoachText {
-//   
+//
 // }
-// 
+//
 // .featuredCoachSelected {
 //   display: inline-block;
 //   width: 200px;
@@ -105,10 +105,10 @@ $inner-addon-padding: 50px;
 //   left: 50%;
 //   margin-left: -20px;
 // }
-// 
-// .animate-enter, 
+//
+// .animate-enter,
 // .animate-leave
-// { 
+// {
 //     -webkit-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
 //     -moz-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
 //     -ms-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
@@ -116,72 +116,73 @@ $inner-addon-padding: 50px;
 //     transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
 //     // position: relative;
 //     // display: block;
-// } 
-//  
-// .animate-enter.animate-enter-active, 
+// }
+//
+// .animate-enter.animate-enter-active,
 // .animate-leave {
 //     opacity: 1;
 // }
-//  
+//
 // .animate-leave.animate-leave-active,
 // .animate-enter {
 //     opacity: 0;
 // }
-// 
+//
 // .thing-form {
 //   margin: 20px 0;
 // }
-// 
+//
 // .hero-unit {
 //   position: relative;
 //   text-align: left;
 //   background: #4393B9;
 //   z-index: 20;
 // }
-// 
+//
 // .footer {
 //   text-align: center;
 //   padding: 30px 0;
 //   margin-top: 70px;
 //   border-top: 1px solid #E5E5E5;
 // }
-// 
+//
 // .featurette-divider {
 //   margin: 40px 0; /* Space out the Bootstrap <hr> more */
 // }
-// 
+//
 // /* Thin out the marketing headings */
 // .featurette-heading {
 //   font-weight: 300;
 //   line-height: 1;
 //   letter-spacing: -1px;
 // }
-// 
+//
 // .icon-addon {
 //     position: relative;
 //     color: #555;
 //     display: block;
 // }
-// 
+//
 // .icon-addon:after,
 // .icon-addon:before {
 //     display: table;
 //     content: " ";
 // }
-// 
+//
 // .icon-addon:after {
 //     clear: both;
 // }
-// 
+//
 
 
 #banner
 {
+  position: relative;
   padding-bottom: 20px;
 }
 
 .addon.addon-md .glyphicon,
-.addon .glyphicon, 
+.addon .glyphicon,
 .addon.addon-md .fa,
 .addon .fa {
     position: absolute;
@@ -207,7 +208,7 @@ $inner-addon-padding: 50px;
   position: relative;
 }
 .left-inner-addon input {
-  padding-left: $inner-addon-padding;    
+  padding-left: $inner-addon-padding;
 }
 .left-inner-addon i {
   position: absolute;
@@ -219,7 +220,7 @@ $inner-addon-padding: 50px;
   position: relative;
 }
 .right-inner-addon input {
-  padding-right: $inner-addon-padding;    
+  padding-right: $inner-addon-padding;
 }
 .right-inner-addon i {
   position: absolute;
@@ -233,7 +234,7 @@ $inner-addon-padding: 50px;
   color: #FFFFFF;
   margin-left: -15px;
   width: 100%;
-  height: $form-height;  
+  height: $form-height;
   letter-spacing: 2px;
   text-decoration: none;
   text-transform: uppercase;
@@ -255,6 +256,7 @@ $inner-addon-padding: 50px;
   width: 400px;
   bottom: 50px;
   margin-left: 50px;
+  margin-right: 50px;
   background-color: #eee;
   border: 1px solid transparent;
   border-radius: 4px;
@@ -276,7 +278,7 @@ $inner-addon-padding: 50px;
 
 #search h2 {
 }
-// 
+//
 // .thumbnail-coach {
 //   display: block;
 //   padding: 4px;
@@ -303,7 +305,7 @@ $inner-addon-padding: 50px;
   color: #515151;
 }
 
-#featured-coaches p 
+#featured-coaches p
 {
   line-height: 200%;
 }
@@ -318,12 +320,12 @@ $inner-addon-padding: 50px;
   text-align: center;
 }
 
-#how-it-works p 
+#how-it-works p
 {
   line-height: 200%;
 }
 
-.page-header 
+.page-header
 {
   text-transform: uppercase;
   color: #515151;

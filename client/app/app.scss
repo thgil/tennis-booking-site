@@ -148,9 +148,9 @@ body {
 #header
 {
   // overflow: hidden;
-  border-bottom: 1px solid #E7E7E7;
-  box-sizing: border-box;
-  height:100px;
+  // border-bottom: 1px solid #E7E7E7;
+  // box-sizing: border-box;
+  // height:100px;
 }
 
 /** LOGO */
@@ -185,6 +185,29 @@ body {
 //   width: 900px;
 //   box-sizing: border-box;
 // }
+@media(max-width: $screen-xs-max)
+{
+  #menu a
+  {
+    padding: 10px 0px;
+  }
+}
+
+@media(min-width: $screen-sm-min)
+{
+  #menu a
+  {
+    padding: 10px 0px;
+  }
+}
+
+@media(min-width: $screen-md-min)
+{
+  #menu a
+  {
+    padding: 10px 20px;
+  }
+}
 
 #menu > ul
 {
@@ -204,7 +227,7 @@ body {
 #menu a
 {
   display: block;
-  padding: 10px 20px;
+  // padding: 10px 20px;
   margin: 0em 1em;
   letter-spacing: 2px;
   text-decoration: none;
@@ -264,4 +287,12 @@ body {
 {
   float: left;
   border-left: 1px solid #E7E7E7;
+}
+
+.navbar-toggle {
+  border-color: #dddddd;
+}
+
+.navbar-toggle .icon-bar {
+  background-color: #888888;
 }

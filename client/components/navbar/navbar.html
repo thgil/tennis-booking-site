@@ -1,5 +1,5 @@
 <!-- <div class="navbar navbar-inverse navbar-static-top" ng-controller="NavbarCtrl">
-  <div class="container">
+  <div class="container-fluid">
     <div class="navbar-header">
       <button class="navbar-toggle" type="button" ng-click="isCollapsed = !isCollapsed">
         <span class="sr-only">Toggle navigation</span>
@@ -29,27 +29,37 @@
     </div>
   </div>
 </div> -->
-<div id="header" class="navbar" ng-controller="NavbarCtrl">
+<div class="navbar" ng-controller="NavbarCtrl">
+<div class="container-fluid">
   <div id="logo" class="navbar-header">
+    <button class="navbar-toggle" type="button" ng-click="isCollapsed = !isCollapsed">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
     <h1><a href="/"><span>Just</span>bookeh</a></h1>
   </div>
-  <div id="menu">
-    <ul class="nav nav-bar nav-bar-right">
-      <li ng-class="{active: isActive('/')}"><a ng-href="/">Homepage</a></li>
-      <li ng-class="{active: isActive('/faq')}"><a ng-href="/faq">FAQ</a></li>
-      <li ng-class="{active: isActive('/find')}"><a ng-href="/find">Find </a></li>
-      <li ng-hide="isLoggedIn()" ng-class="{active: isActive('/signup')}"><a ng-href="/signup">Sign up</a></li>
-      <li ng-hide="isLoggedIn()" ng-class="{active: isActive('/login')}"><a ng-href="/login">Login</a></li>
-      <li ng-show="isLoggedIn()"><span class="dropdown"><a href class="dropdown-toggle">Dashboard</a>
-        <ul id="dropdown" class="dropdown-menu">
-          <li ng-show="isUser()"><a ui-sref="userdashboard">Profile</a></li>
-          <li ng-show="isCoach()"><a ui-sref="editprofile">Edit Profile</a></li>
-          <li><a ui-sref="c">c</a></li>
-          <li><a ui-sref="d">d</a></li>
-          <li><a ui-sref="e">e</a></li>
-          <li><a ng-click="logout()">Logout</a></li>
-        </ul></span>
-      </li>
-    </ul>
+  <div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
+    <div id="menu">
+      <ul class="nav navbar-nav navbar-right">
+        <li ng-class="{active: isActive('/')}"><a ng-href="/">Homepage</a></li>
+        <li ng-class="{active: isActive('/faq')}"><a ng-href="/faq">FAQ</a></li>
+        <li ng-class="{active: isActive('/find')}"><a ng-href="/find">Find </a></li>
+        <li ng-hide="isLoggedIn()" ng-class="{active: isActive('/signup')}"><a ng-href="/signup">Sign up</a></li>
+        <li ng-hide="isLoggedIn()" ng-class="{active: isActive('/login')}"><a ng-href="/login">Login</a></li>
+        <li ng-show="isLoggedIn()"><span class="dropdown"><a href class="dropdown-toggle">Dashboard</a>
+          <ul id="dropdown" class="dropdown-menu">
+            <li ng-show="isUser()"><a ui-sref="userdashboard">Profile</a></li>
+            <li ng-show="isCoach()"><a ui-sref="editprofile">Edit Profile</a></li>
+            <li><a ui-sref="c">c</a></li>
+            <li><a ui-sref="d">d</a></li>
+            <li><a ui-sref="e">e</a></li>
+            <li><a ng-click="logout()">Logout</a></li>
+          </ul></span>
+        </li>
+      </ul>
+    </div>
   </div>
+</div>
 </div>

@@ -3,14 +3,14 @@
 describe('Directive: ngAutocomplete', function () {
 
   // load the directive's module
-  beforeEach(module('tennisBookingSiteApp'));
-
-  var element,
-    scope;
-
-  beforeEach(inject(function ($rootScope) {
-    scope = $rootScope.$new();
-  }));
+  // beforeEach(module('tennisBookingSiteApp'));
+  //
+  // var element,
+  //   scope;
+  //
+  // beforeEach(inject(function ($rootScope) {
+  //   scope = $rootScope.$new();
+  // }));
 
   // it('should fail without ngModel', inject(function ($compile) {
   //   element = angular.element('<div ng-autocomplete></div>');
