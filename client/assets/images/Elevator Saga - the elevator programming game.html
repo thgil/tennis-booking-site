@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<!-- saved from url=(0041)http://play.elevatorsaga.com/#challenge=1 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Elevator Saga - the elevator programming game</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./Elevator Saga - the elevator programming game_files/font-awesome.min.css" type="text/css" media="all">
+    <link href="./Elevator Saga - the elevator programming game_files/css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="http://play.elevatorsaga.com/libs/codemirror/codemirror.css">
+    <link rel="stylesheet" href="http://play.elevatorsaga.com/libs/codemirror/themes/solarized.css">
+    <link rel="stylesheet" href="./Elevator Saga - the elevator programming game_files/style.css" type="text/css" media="all">
+    
+    <script async="" src="./Elevator Saga - the elevator programming game_files/analytics.js"></script><script type="text/javascript" src="./Elevator Saga - the elevator programming game_files/jquery-2.1.1.min.js"></script><style type="text/css"></style>
+    <script type="text/javascript" src="./Elevator Saga - the elevator programming game_files/lodash.min.js"></script>
+    <script type="text/javascript" src="./Elevator Saga - the elevator programming game_files/riot.js"></script>
+
+    <script type="text/javascript" src="./Elevator Saga - the elevator programming game_files/codemirror.js"></script>
+    <script type="text/javascript" src="./Elevator Saga - the elevator programming game_files/javascript.js"></script>
+
+    <script type="text/javascript" src="./Elevator Saga - the elevator programming game_files/base.js"></script>
+    <script type="text/javascript" src="./Elevator Saga - the elevator programming game_files/movable.js"></script>
+    <script type="text/javascript" src="./Elevator Saga - the elevator programming game_files/floor.js"></script>
+    <script type="text/javascript" src="./Elevator Saga - the elevator programming game_files/user.js"></script>
+    <script type="text/javascript" src="./Elevator Saga - the elevator programming game_files/elevator.js"></script>
+    <script type="text/javascript" src="./Elevator Saga - the elevator programming game_files/interfaces.js"></script>
+    <script type="text/javascript" src="./Elevator Saga - the elevator programming game_files/world.js"></script>
+    <script type="text/javascript" src="./Elevator Saga - the elevator programming game_files/presenters.js"></script>
+    <script type="text/javascript" src="./Elevator Saga - the elevator programming game_files/challenges.js"></script>
+    <script type="text/javascript" src="./Elevator Saga - the elevator programming game_files/app.js"></script>
+
+
+    <script type="text/template" id="user-template">
+        <i class="movable fa user fa-{u.displayType} {state}" style="left: {u.worldX}px; top: {u.worldY}px;"></i>
+    </script>
+
+    <script type="text/template" id="floor-template">
+        <div class="floor" style="top: {yPosition}px">
+            <span class="floornumber">{level}</span>
+            <span class="buttonindicator">
+                <i class="fa fa-arrow-circle-up up"></i>
+                <i class="fa fa-arrow-circle-down down"></i>
+            </span>
+        </div>
+    </script>
+
+    <script type="text/template" id="elevator-template">
+        <div class="elevator movable" style="left: {e.worldX}px; top: {e.worldY}px">
+            <span class="floorindicator">{e.currentFloor}</span>
+            <span class="buttonindicator">
+                {buttons}
+            </span>
+        </div>
+    </script>
+
+    <script type="text/template" id="elevatorbutton-template">
+        <span class="buttonpress {state}">{floorNum}</span>
+    </script>
+
+    <script type="text/template" id="feedback-template">
+        <div class="feedback">
+            <h2 class="emphasis-color">{title}</h2>
+            <p class="emphasis-color">{message}</p>
+            <a href="{url}" class="emphasis-color">Next challenge <i class="fa fa-caret-right blink" style="text-decoration: blink"></i></a>
+        </div>
+    </script>
+
+    <script type="text/template" id="stats-template">
+        <div><span class="key">Transported</span><span class="value">{transportedCounter}</span></div>
+        <div><span class="key">Elapsed time</span><span class="value">{elapsedTime}s</span></div>
+        <div><span class="key">Transported/s</span><span class="value">{transportedPerSec}</span></div>
+        <div><span class="key">Avg waiting time</span><span class="value">{avgWaitTime}s</span></div>
+        <div><span class="key">Max waiting time</span><span class="value">{maxWaitTime}s</span></div>
+        <div><span class="key" title="Number of floors that have been travelled by elevators">Moves</span><span class="value">{moveCount}</span></div>
+    </script>
+
+    <script type="text/template" id="challenge-template">
+        <div class="left">
+            <h3>Challenge #{num}: {challenge.condition.description}</h3>
+        </div>
+        <button class="right startstop unselectable" style="width: 110px">{startButtonText}</button>
+        <h3 class="right">
+            <i class="fa fa-minus-square timescale_decrease unselectable"></i>
+            <span class="emphasis-color" style="display: inline-block; width: 22px; text-align: center">{timeScale}</span>
+            <i class="fa fa-plus-square timescale_increase unselectable"></i>
+        </h3>
+    </script>
+
+    <script type="text/template" id="codestatus-template">
+        <h5 class="error" style="display: {errorDisplay}"><i class="fa fa-warning error-color"></i> There is a problem with your code: {errorMessage}</h5>
+    </script>
+
+    <script type="text/plain" id="default-elev-implementation">
+{
+    init: function(elevators, floors) {
+        var elevator = elevators[0]; // Let's use the first elevator
+        elevator.on("idle", function() {
+            // The elevator is idle, so let's go to all the floors (or did we forget one?)
+            elevator.goToFloor(0);
+            elevator.goToFloor(1);
+        });
+    },
+    update: function(dt, elevators, floors) {
+        // We normally don't need to do anything here
+    }
+}
+    </script>
+</head><body>
+    <div class="container">
+        <div class="header">
+            <h1 class="left">Elevator Saga <em class="emphasis-color">The elevator programming game</em></h1>
+            <a class="right" href="https://github.com/magwo/elevatorsaga/wiki/">Wiki &amp; Solutions</a>
+            <a class="right" href="http://play.elevatorsaga.com/documentation.html#docs">Documentation</a>
+            <a class="right" href="http://play.elevatorsaga.com/documentation.html">Help</a>
+        </div>
+
+        <div class="challenge" style="height: 40px"><div class="left">
+            <h3>Challenge #1: Transport <span class="emphasis-color">15</span> people in <span class="emphasis-color">60</span> seconds or less</h3>
+        </div>
+        <button class="right startstop unselectable" style="width: 110px">Start</button>
+        <h3 class="right">
+            <i class="fa fa-minus-square timescale_decrease unselectable"></i>
+            <span class="emphasis-color" style="display: inline-block; width: 22px; text-align: center">2x</span>
+            <i class="fa fa-plus-square timescale_increase unselectable"></i>
+        </h3></div>
+
+        <div class="world">
+            <div class="feedbackcontainer"></div>
+            <div class="innerworld" style="height: 150px;"><div class="floor" style="top: 100px">
+            <span class="floornumber">0</span>
+            <span class="buttonindicator">
+                <i class="fa fa-arrow-circle-up up"></i>
+                <i class="fa fa-arrow-circle-down down"></i>
+            </span>
+        </div><div class="floor" style="top: 50px">
+            <span class="floornumber">1</span>
+            <span class="buttonindicator">
+                <i class="fa fa-arrow-circle-up up"></i>
+                <i class="fa fa-arrow-circle-down down activated"></i>
+            </span>
+        </div><div class="floor" style="top: 0px">
+            <span class="floornumber">2</span>
+            <span class="buttonindicator">
+                <i class="fa fa-arrow-circle-up up"></i>
+                <i class="fa fa-arrow-circle-down down activated"></i>
+            </span>
+        </div><div class="elevator movable" style="left: 200px; top: 100px;">
+            <span class="floorindicator">0</span>
+            <span class="buttonindicator"><span class="buttonpress ">0</span><span class="buttonpress ">1</span><span class="buttonpress activated">2</span></span>
+        </div><i class="movable fa user fa-male " style="left: 202px; top: 130px;"></i><i class="movable fa user fa-male " style="left: 212px; top: 130px;"></i><i class="movable fa user fa-female " style="left: 112px; top: 30px;"></i><i class="movable fa user fa-male " style="left: 136px; top: 30px;"></i><i class="movable fa user fa-male " style="left: 104px; top: 80px;"></i></div>
+            <div class="statscontainer"><div><span class="key">Transported</span><span class="value">0</span></div>
+        <div><span class="key">Elapsed time</span><span class="value">14s</span></div>
+        <div><span class="key">Transported/s</span><span class="value">0.00</span></div>
+        <div><span class="key">Avg waiting time</span><span class="value">0.0s</span></div>
+        <div><span class="key">Max waiting time</span><span class="value">14.0s</span></div>
+        <div><span class="key" title="Number of floors that have been travelled by elevators">Moves</span><span class="value">8</span></div></div>
+        </div>
+
+        <div class="codestatus"><h5 class="error" style="display: none"><i class="fa fa-warning error-color"></i> There is a problem with your code: </h5></div>
+        <div class="code">
+            <textarea name="Code" id="code" style="display: none;"></textarea><div class="CodeMirror cm-s-solarized cm-s-light    CodeMirror-focused"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 130px; left: 285px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none;" tabindex="0"></textarea></div><div class="CodeMirror-hscrollbar" style="left: 31px; min-height: 18px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar" style="min-width: 18px;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1" draggable="false"><div class="CodeMirror-sizer" style="margin-left: 31px; min-width: 706px; min-height: 260px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><div style="width: 50px; height: 50px; overflow-x: scroll;"></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"><div class="CodeMirror-cursor" style="left: 254px; top: 126px; height: 18px;">&nbsp;</div></div><div class="CodeMirror-code"><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -31px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">1</div></div><pre class=""><span style="padding-right: 0.1px;">{</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -31px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">2</div></div><pre class=""><span style="padding-right: 0.1px;">    <span class="cm-variable">init</span>: <span class="cm-keyword">function</span>(<span class="cm-def">elevators</span>, <span class="cm-def">floors</span>) {</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -31px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">3</div></div><pre class=""><span style="padding-right: 0.1px;">        <span class="cm-keyword">var</span> <span class="cm-def">elevator</span> <span class="cm-operator">=</span> <span class="cm-variable-2">elevators</span>[<span class="cm-number">0</span>]; <span class="cm-comment">// Let's use the first elevator</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -31px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">4</div></div><pre class=""><span style="padding-right: 0.1px;">        <span class="cm-variable-2">elevator</span>.<span class="cm-property">on</span>(<span class="cm-string">"idle"</span>, <span class="cm-keyword">function</span>() {</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -31px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">5</div></div><pre class=""><span style="padding-right: 0.1px;">            <span class="cm-comment">// The elevator is idle, so let's go to all the floors (or did we forget one?)</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -31px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">6</div></div><pre class=""><span style="padding-right: 0.1px;">            <span class="cm-variable-2">elevator</span>.<span class="cm-property">goToFloor</span>(<span class="cm-number">0</span>);</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -31px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">7</div></div><pre class=""><span style="padding-right: 0.1px;">            <span class="cm-variable-2">elevator</span>.<span class="cm-property">goToFloor</span>(<span class="cm-number">1</span>);</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -31px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">8</div></div><pre><span style="padding-right: 0.1px;">            <span class="cm-variable-2">elevator</span>.<span class="cm-property">goToFloor</span>(<span class="cm-number">2</span>);</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -31px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">9</div></div><pre class=""><span style="padding-right: 0.1px;">        });</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -31px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">10</div></div><pre class=""><span style="padding-right: 0.1px;">    },</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -31px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">11</div></div><pre class=""><span style="padding-right: 0.1px;">    <span class="cm-variable">update</span>: <span class="cm-keyword">function</span>(<span class="cm-def">dt</span>, <span class="cm-def">elevators</span>, <span class="cm-def">floors</span>) {</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -31px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">12</div></div><pre class=""><span style="padding-right: 0.1px;">        <span class="cm-comment">// We normally don't need to do anything here</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -31px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">13</div></div><pre class=""><span style="padding-right: 0.1px;">    }</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="position: absolute; left: -31px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 20px;">14</div></div><pre class=""><span style="padding-right: 0.1px;">}</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 260px;"></div><div class="CodeMirror-gutters" style="height: 300px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 30px;"></div></div></div></div>
+        </div>
+        <button id="button_reset" style="float: left">Reset</button>
+        <button id="button_resetundo" style="float: left">Undo reset</button>
+        <button id="button_apply" style="float: right">Apply</button>
+        <button id="button_save" style="float: right">Save</button>
+        <span id="save_message" style="float: right">Code saved 20:56:30 GMT+0000 (GMT)</span>
+        <div style="clear:both;"></div>
+        
+        <div style="margin-top: 20px">
+            <h3>Confused? Open the <a href="http://play.elevatorsaga.com/documentation.html">Help and API documentation</a> page</h3>
+        </div>
+        <div class="footer">
+            <h4>Made by Magnus Wolffelt and contributors</h4>
+            <h4>Version <span class="emphasis-color">1.2.1</span></h4>
+            <h4><a href="https://github.com/magwo/elevatorsaga">Source code</a> on GitHub</h4>
+            <h4><a href="http://play.elevatorsaga.com/test/index.html">Run tests</a></h4>
+        </div>
+    </div>
+
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-56810935-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+
+</body></html>

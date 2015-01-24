@@ -1,255 +1,248 @@
 $form-height: 50px;
 $form-font-size: 1.2em;
-
-.angular-google-map-container { height: 400px; width:100% }
-
-#banner {
-  min-height: 400px;
-  background-size: cover;
-  background-image: url('/assets/images/tennis-player-bg1.jpg');
-  background-repeat: no-repeat;
-  background-position: 20% 0%;
-}
-
-#banner {
-  border-bottom: none;
-  margin-top: -20px;
-}
-
-// #banner h1 {
-//   text-shadow: 2px 2px 1px rgba(0,0,0,0.8);
-//   font-size: 42px;
-//   font-weight: 100px;
-//   color: #eee;
-//   line-height: 1;
-//   letter-spacing: 0px;
+$inner-addon-padding: 50px;
+// 
+// .angular-google-map-container { height: 400px; width:100% }
+// 
+// // #banner h1 {
+// //   text-shadow: 2px 2px 1px rgba(0,0,0,0.8);
+// //   font-size: 42px;
+// //   font-weight: 100px;
+// //   color: #eee;
+// //   line-height: 1;
+// //   letter-spacing: 0px;
+// // }
+// 
+// .grad {
+//   position: absolute;
+//   left: 0;
+//   bottom: 0;
+//   height: 220px;
+//   width: 100%;
+//   background-image: -webkit-gradient(linear,0 0,0 100%,from(rgba(119, 191, 239,0)),color-stop(50%,rgba(119, 191, 239,0.7)),to(rgb(119, 191, 239)));
+//   background-image: -webkit-linear-gradient(rgba(119, 191, 239,0),rgba(119, 191, 239,0.7) 50%,rgb(119, 191, 239));
+//   background-image: -moz-linear-gradient(top,rgba(119, 191, 239,0),rgba(119, 191, 239,0.7) 50%,rgb(119, 191, 239));
+//   background-image: linear-gradient(transparent, rgba(119, 191, 239, 0.7) 50%, rgb(119, 191, 239));
 // }
+// 
+// .shade {
+//   position: absolute;
+//   left: 0;
+//   bottom: 0;
+//   height: 220px;
+//   width: 100%;
+//   background-image: -webkit-gradient(linear,0 0,0 100%,from(rgba(0,0,0,0)),color-stop(50%,rgba(0,0,0,0.7)),to(#000));
+//   background-image: -webkit-linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0.7) 50%,#000);
+//   background-image: -moz-linear-gradient(top,rgba(0,0,0,0),rgba(0,0,0,0.7) 50%,#000);
+//   background-image: linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0.7) 50%,#000);
+//   background-repeat: no-repeat;
+//   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000',endColorstr='#ff000000',GradientType=0);
+// }
+// 
+// .flip {
+//   // Flip the image
+//   -moz-transform: scaleX(-1);
+//   -o-transform: scaleX(-1);
+//   -webkit-transform: scaleX(-1);
+//   -ms-transform: scaleX(-1);
+//   transform: scaleX(-1);
+//   -ms-filter: "FlipH";
+//   filter: FlipH;
+// }
+// 
+// .featured {
+//   display: block;
+//   text-align: center;
+//   padding: 10px;
+// }
+// .featuredCoaches {
+//   display: block;
+//   // margin: 10px 0;
+//   text-align: center;
+//   padding: 10px;
+// }
+// .featuredCoach {
+//   position: relative;
+//   text-align: center;
+// }
+// .featuredCoachImage {
+//   width:100%;
+//   height:150px;
+// }
+// 
+// .featuredCoachText {
+//   
+// }
+// 
+// .featuredCoachSelected {
+//   display: inline-block;
+//   width: 200px;
+//   margin: 5px;
+// }
+// .featuredInfo {
+//   text-align: center;
+//   min-height: 200px;
+//   background-color: #eee;
+//   margin-top: 20px;
+//   position: relative;
+// }
+// .featuredBox {
+//   display: block;
+//   margin: 0 auto;
+//   text-align: center;
+// }
+// .arrow {
+//   content: '';
+//   position: absolute;
+//   display: block;
+//   width: 0;
+//   height: 0;
+//   border-style: solid;
+//   border-width: 0 20px 20px 20px;
+//   border-color: transparent transparent transparent transparent;
+//   border-bottom-color: #eee;
+//   top: -20px;
+//   left: 50%;
+//   margin-left: -20px;
+// }
+// 
+// .animate-enter, 
+// .animate-leave
+// { 
+//     -webkit-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+//     -moz-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+//     -ms-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+//     -o-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+//     transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+//     // position: relative;
+//     // display: block;
+// } 
+//  
+// .animate-enter.animate-enter-active, 
+// .animate-leave {
+//     opacity: 1;
+// }
+//  
+// .animate-leave.animate-leave-active,
+// .animate-enter {
+//     opacity: 0;
+// }
+// 
+// .thing-form {
+//   margin: 20px 0;
+// }
+// 
+// .hero-unit {
+//   position: relative;
+//   text-align: left;
+//   background: #4393B9;
+//   z-index: 20;
+// }
+// 
+// .footer {
+//   text-align: center;
+//   padding: 30px 0;
+//   margin-top: 70px;
+//   border-top: 1px solid #E5E5E5;
+// }
+// 
+// .featurette-divider {
+//   margin: 40px 0; /* Space out the Bootstrap <hr> more */
+// }
+// 
+// /* Thin out the marketing headings */
+// .featurette-heading {
+//   font-weight: 300;
+//   line-height: 1;
+//   letter-spacing: -1px;
+// }
+// 
+// .icon-addon {
+//     position: relative;
+//     color: #555;
+//     display: block;
+// }
+// 
+// .icon-addon:after,
+// .icon-addon:before {
+//     display: table;
+//     content: " ";
+// }
+// 
+// .icon-addon:after {
+//     clear: both;
+// }
+// 
 
-.grad {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 220px;
-  width: 100%;
-  background-image: -webkit-gradient(linear,0 0,0 100%,from(rgba(119, 191, 239,0)),color-stop(50%,rgba(119, 191, 239,0.7)),to(rgb(119, 191, 239)));
-  background-image: -webkit-linear-gradient(rgba(119, 191, 239,0),rgba(119, 191, 239,0.7) 50%,rgb(119, 191, 239));
-  background-image: -moz-linear-gradient(top,rgba(119, 191, 239,0),rgba(119, 191, 239,0.7) 50%,rgb(119, 191, 239));
-  background-image: linear-gradient(transparent, rgba(119, 191, 239, 0.7) 50%, rgb(119, 191, 239));
-}
 
-.search {
-  position: absolute;
-  width: 400px;
-  margin-bottom: 30px;
-  bottom: 0px;
-
-  margin-bottom: 20px;
-  background-color: #eee;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
-}
-
-.search h1 {
-  font-size: 42px;
-  font-weight: 80px;
-  color: #333333;
-  line-height: 1.2;
-  letter-spacing: 0px;
-}
-
-.shade {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 220px;
-  width: 100%;
-  background-image: -webkit-gradient(linear,0 0,0 100%,from(rgba(0,0,0,0)),color-stop(50%,rgba(0,0,0,0.7)),to(#000));
-  background-image: -webkit-linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0.7) 50%,#000);
-  background-image: -moz-linear-gradient(top,rgba(0,0,0,0),rgba(0,0,0,0.7) 50%,#000);
-  background-image: linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0.7) 50%,#000);
-  background-repeat: no-repeat;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000',endColorstr='#ff000000',GradientType=0);
-}
-
-.flip {
-  // Flip the image
-  -moz-transform: scaleX(-1);
-  -o-transform: scaleX(-1);
-  -webkit-transform: scaleX(-1);
-  -ms-transform: scaleX(-1);
-  transform: scaleX(-1);
-  -ms-filter: "FlipH";
-  filter: FlipH;
-}
-
-.featured {
-  display: block;
-  text-align: center;
-  padding: 10px;
-}
-.featuredCoaches {
-  display: block;
-  // margin: 10px 0;
-  text-align: center;
-  padding: 10px;
-}
-.featuredCoach {
-  position: relative;
-  text-align: center;
-}
-.featuredCoachImage {
-  width:100%;
-  height:150px;
-}
-
-.featuredCoachText {
-  
-}
-
-.featuredCoachSelected {
-  display: inline-block;
-  width: 200px;
-  margin: 5px;
-}
-.featuredInfo {
-  text-align: center;
-  min-height: 200px;
-  background-color: #eee;
-  margin-top: 20px;
-  position: relative;
-}
-.featuredBox {
-  display: block;
-  margin: 0 auto;
-  text-align: center;
-}
-.arrow {
-  content: '';
-  position: absolute;
-  display: block;
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 0 20px 20px 20px;
-  border-color: transparent transparent transparent transparent;
-  border-bottom-color: #eee;
-  top: -20px;
-  left: 50%;
-  margin-left: -20px;
-}
-
-.animate-enter, 
-.animate-leave
-{ 
-    -webkit-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    -moz-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    -ms-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    -o-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    // position: relative;
-    // display: block;
-} 
- 
-.animate-enter.animate-enter-active, 
-.animate-leave {
-    opacity: 1;
-}
- 
-.animate-leave.animate-leave-active,
-.animate-enter {
-    opacity: 0;
-}
-
-.thing-form {
-  margin: 20px 0;
-}
-
-.hero-unit {
-  position: relative;
-  text-align: left;
-  background: #4393B9;
-  z-index: 20;
-}
-
-.footer {
-  text-align: center;
-  padding: 30px 0;
-  margin-top: 70px;
-  border-top: 1px solid #E5E5E5;
-}
-
-.featurette-divider {
-  margin: 40px 0; /* Space out the Bootstrap <hr> more */
+#banner
+{
+  padding-bottom: 20px;
 }
 
-/* Thin out the marketing headings */
-.featurette-heading {
-  font-weight: 300;
-  line-height: 1;
-  letter-spacing: -1px;
-}
-
-.icon-addon {
-    position: relative;
-    color: #555;
-    display: block;
-}
-
-.icon-addon:after,
-.icon-addon:before {
-    display: table;
-    content: " ";
-}
-
-.icon-addon:after {
-    clear: both;
-}
-
-.icon-addon.addon-md .glyphicon,
-.icon-addon .glyphicon, 
-.icon-addon.addon-md .fa,
-.icon-addon .fa {
+.addon.addon-md .glyphicon,
+.addon .glyphicon, 
+.addon.addon-md .fa,
+.addon .fa {
     position: absolute;
     z-index: 2;
-    left: 10px;
     font-size: 2em;
     width: 20px;
-    margin-left: -2.5px;
+    padding-left: 10px;
     text-align: center;
     padding: 10px 0;
     top: 1px;
     padding-right: 40px;
 }
 
-.icon-addon .form-control { 
-    padding-left: 40px;
-}
 
-.icon-addon .form-control:focus + .glyphicon,
-.icon-addon:hover .glyphicon,
-.icon-addon .form-control:focus + .fa,
-.icon-addon:hover .fa {
+.addon .form-control:focus + .glyphicon,
+.addon:hover .glyphicon,
+.addon .form-control:focus + .fa,
+.addon:hover .fa {
     color: #2580db;
 }
 
-.form-control {
-  line-height: 1.33;
-  font-size: $form-font-size;
-  height: $form-height;
-  float: left;
-  font-weight: normal;
+.left-inner-addon {
+  position: relative;
+}
+.left-inner-addon input {
+  padding-left: $inner-addon-padding;    
+}
+.left-inner-addon i {
+  position: absolute;
+  padding: 10px 12px;
+  pointer-events: none;
 }
 
-.btn-main {
-  padding-right: -15px;
+.right-inner-addon {
+  position: relative;
+}
+.right-inner-addon input {
+  padding-right: $inner-addon-padding;    
+}
+.right-inner-addon i {
+  position: absolute;
+  right: 0px;
+  padding: 10px 12px;
+  pointer-events: none;
+}
+
+.btn-search {
+  background-color: #99CCBB;
+  color: #FFFFFF;
   margin-left: -15px;
   width: 100%;
-  height: $form-height;
-  font-size: $form-font-size;
+  height: $form-height;  
+  letter-spacing: 2px;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-family: 'Archivo Narrow', sans-serif;
+  font-size: 1.10em;
+  font-weight: 600;
 }
 
-.col-md-4-r {
+.col-xs-4-r {
   width: 33.33333%;
   float: left;
   position: relative;
@@ -257,13 +250,81 @@ $form-font-size: 1.2em;
   padding-left: 15px;
 }
 
-.thumbnail-coach {
-  display: block;
-  padding: 4px;
-  line-height: 1.42857;
-  background-color: white;
-  border: 1px solid #dddddd;
+#search {
+  position: absolute;
+  width: 400px;
+  bottom: 50px;
+  margin-left: 50px;
+  background-color: #eee;
+  border: 1px solid transparent;
   border-radius: 4px;
-  transition: all 0.2s ease-in-out;
-  margin: 20px 0 20px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+#search header
+{
+  padding-bottom: 10px;
+}
+
+#search .form-control {
+  line-height: 1.33;
+  font-size: $form-font-size;
+  height: $form-height;
+  float: left;
+  font-weight: normal;
+}
+
+#search h2 {
+}
+// 
+// .thumbnail-coach {
+//   display: block;
+//   padding: 4px;
+//   line-height: 1.42857;
+//   background-color: white;
+//   border: 1px solid #dddddd;
+//   border-radius: 4px;
+//   transition: all 0.2s ease-in-out;
+//   margin: 20px 0 20px;
+// }
+
+/* Three Column Content */
+
+#featured-coaches
+{
+  overflow: hidden;
+  padding: 20px 0px;
+}
+
+#featured-coaches .content > h2
+{
+  margin-bottom: 1.0em;
+  text-transform: uppercase;
+  color: #515151;
+}
+
+#featured-coaches p 
+{
+  line-height: 200%;
+}
+
+#how-it-works
+{
+  padding: 20px 0px;
+}
+
+#how-it-works div
+{
+  text-align: center;
+}
+
+#how-it-works p 
+{
+  line-height: 200%;
+}
+
+.page-header 
+{
+  text-transform: uppercase;
+  color: #515151;
 }

@@ -30,7 +30,8 @@ require('./config/express')(app);
 require('./routes')(app);
 
 // JOBS
-require('./cronjobs/review');
+// disabled review
+// require('./cronjobs/review');
 
 // Start server
 server.listen(config.port, config.ip, function () {

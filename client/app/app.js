@@ -9,7 +9,8 @@ angular.module('tennisBookingSiteApp', [
   'ui.router',
   'ui.bootstrap',
   'xeditable',
-  'uiGmapgoogle-maps'
+  'uiGmapgoogle-maps',
+  'ui.bootstrap-slider'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, uiGmapGoogleMapApiProvider) {
     $urlRouterProvider
