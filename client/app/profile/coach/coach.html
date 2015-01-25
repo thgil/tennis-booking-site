@@ -1,6 +1,6 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 <div class="container">
-  <div class="row">  
+  <div class="row">
     <div class="col-md-3">
       <div class="thumbnail">
         <img holder="holder.js/100%x250/random" alt="coach.name">
@@ -13,7 +13,7 @@
             <strong>Years Teaching :</strong>
             7 Years
           </p>
-          <button class="btn btn-danger btn-lg">BOOK LESSON</button>
+          <button class="btn btn-danger btn-lg" ng-click="message()">Message Me</button>
       </div>
     </div>
     <div class="col-md-6">
@@ -22,7 +22,7 @@
         <h4>Boynton Beach, FL</h4>
         <p>{{coach.about}}</p>
       </div>
-    
+
       <b>Prev</b>
       {{date.start}} - {{date.end}}
       <b>Next</b>
@@ -40,9 +40,9 @@
       </table>
     </div>
     <div class="col-md-3">
-      <ui-gmap-google-map center="map.center" 
-        zoom="map.zoom" draggable="true" 
-        bounds="map.bounds" control="map.control" 
+      <ui-gmap-google-map center="map.center"
+        zoom="map.zoom" draggable="true"
+        bounds="map.bounds" control="map.control"
         options="map.options">
         <ui-gmap-circle center="circle.center" stroke="circle.stroke" fill="circle.fill" radius="circle.radius">
         </ui-gmap-circle>
@@ -66,12 +66,33 @@
             <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
         </div>
     </script>
-
+    <script type="text/ng-template" id="messageModalContent.html">
+      <div class="modal-header">
+        <h3 class="modal-title">Message {{coach.name}}</h3>
+      </div>
+      <div class="modal-body">
+        <div ng-hide="isLoggedIn()">
+          Sign up to book!
+        </div>
+        <div ng-show="isLoggedIn()">
+          <form>
+            <div class="form-group">
+              <textarea rows="4" cols="50" class="form-control" placeholder="Enter message" ng-model="message"></textarea>
+              <span class="help-block" ng-show="error">{{error}}</span>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="send()">Send</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+      </div>
+    </script>
   </div>
   <div class="row">
   <li class="list-group-item" ng-repeat="l in lessons">
       <strong>{{l.for}}</strong><br>
-      <span class="text-muted">{{l.coach}}</span> with 
+      <span class="text-muted">{{l.coach}}</span> with
       <span class="text-muted">{{l.count}}</span> person. Age:
       <span class="text-muted">{{l.age}}</span> Exp:
       <span class="text-muted">{{l.exp}}</span> from
